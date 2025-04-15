@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Polyline?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="534.0" prefWidth="823.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.mycompany.javafx.StartController">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="540.0" prefWidth="823.0" VBox.vgrow="ALWAYS">
+      <children>
+        <Button id="startButton" layoutX="561.0" layoutY="120.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="238.0" text="Iniciar Monitor ECG" textAlignment="CENTER" textFill="WHITE"
+                styleClass="default-button">
+          <font>
+            <Font name="System Bold" size="16.0" />
+          </font>
+        </Button>
+        <Button id="startWithoutDataButton" defaultButton="true" layoutX="560.0" layoutY="204.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="238.0" text="Iniciar Sin Datos de Paciente" textAlignment="CENTER" textFill="WHITE"
+                styleClass="default-button">
+          <font>
+            <Font name="System Bold" size="16.0" />
+          </font>
+        </Button>
+        <Button id="exitButton" layoutX="560.0" layoutY="288.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="238.0" text="Salir" textAlignment="CENTER" textFill="WHITE"
+                styleClass="negative-button">
+          <font>
+            <Font name="System Bold" size="16.0" />
+          </font>
+        </Button>
+        <ChoiceBox id="genderComboBox" layoutX="320.0" layoutY="176.0" prefHeight="28.0" prefWidth="171.0" />
+        <DatePicker id="birthDatePicker" layoutX="320.0" layoutY="225.0" prefHeight="26.0" prefWidth="171.0" />
+        <Label id="genderLabel" layoutX="58.0" layoutY="175.0" prefHeight="30.0" prefWidth="116.0" text="Género">
+          <font>
+            <Font name="System Bold" size="18.0" />
+          </font>
+        </Label>
+        <Label id="birthDateLabel" layoutX="58.0" layoutY="223.0" prefHeight="30.0" prefWidth="218.0" text="Fecha de Nacimiento">
+          <font>
+            <Font name="System Bold" size="18.0" />
+          </font>
+        </Label>
+        <TextArea id="medicalHistoryArea" layoutX="52.0" layoutY="332.0" prefHeight="190.0" prefWidth="434.0" promptText="Puede escribir aquí datos relevantes para el monitoreo del paciente" />
+        <Label id="medicalHistoryLabel" layoutX="58.0" layoutY="288.0" prefHeight="30.0" prefWidth="218.0" text="Historial Médico">
+          <font>
+            <Font name="System Bold" size="18.0" />
+          </font>
+        </Label>
+        <Polyline fill="#18303026" layoutX="484.0" layoutY="537.0" points="60.0, -94.40005493164062, 339.199951171875, 4.0, -484.0, 28.0, 301.79998779296875, 27.999969482421875" stroke="TRANSPARENT" strokeType="INSIDE" />
+        <Label id="clockLabel" layoutX="605.0" layoutY="344.0" prefHeight="82.0" prefWidth="150.0" text="10:52" fx:id="clockLabel">
+          <font>
+            <Font name="System Bold" size="55.0" />
+          </font>
+        </Label>
+        <Label id="timeLabel" layoutX="665.0" layoutY="414.0" prefHeight="26.0" prefWidth="30.0" text="AM" fx:id="amPmLabel">
+          <font>
+            <Font name="System Bold" size="16.0" />
+          </font>
+        </Label>
+        <Label id="infoTitleLabel" layoutX="51.0" layoutY="68.0" prefHeight="30.0" prefWidth="326.0" text="Información General del Paciente">
+          <font>
+            <Font name="System Bold" size="20.0" />
+          </font>
+        </Label>
+        <TextField id="patientNameTextBox" layoutX="51.0" layoutY="119.0" prefHeight="39.0" prefWidth="442.0" promptText="Ingrese el nombre del paciente" />
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>
