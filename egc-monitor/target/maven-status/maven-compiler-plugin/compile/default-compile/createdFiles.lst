@@ -1,5 +1,3 @@
 module-info.class
-com\mycompany\javafx\SecondaryController.class
-com\mycompany\javafx\PrimaryController.class
-com\mycompany\javafx\App.class
 com\mycompany\javafx\StartController.class
+com\mycompany\ecg\App.class

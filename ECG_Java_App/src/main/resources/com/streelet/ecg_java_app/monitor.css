@@ -1,0 +1,135 @@
+/* ecg-style.css */
+
+/* 1. Estilo para el contenedor principal (BorderPane) y otros paneles */
+/* Establece el fondo oscuro para toda la aplicación */
+.root {
+    -fx-background-color: #1a1a1a; /* Fondo muy oscuro o casi negro */
+}
+
+.border-pane, .pane, .grid-pane {
+     -fx-background-color: #1a1a1a; /* Asegura que los subcontenedores también tengan fondo oscuro */
+}
+
+
+/* 2. Estilos para el LineChart (fx:id="ecgChart") */
+/* Estos selectores aplican a cualquier Chart, incluyendo el tuyo */
+.chart {
+    -fx-padding: 10px; /* Espacio alrededor del chart */
+    /* El background-color ya está en .root/.border-pane, pero podemos reforzarlo aquí si es necesario */
+     -fx-background-color: #1a1a1a;
+}
+
+/* Estilo del área donde se dibuja la gráfica */
+.chart-content {
+    -fx-background-color: #1a1a1a; /* Asegura que el fondo del área de trazado también sea oscuro */
+}
+
+/* Estilo del fondo del área de trazado (generalmente se usa junto con chart-content) */
+.chart-plot-background {
+     -fx-background-color: #1a1a1a; /* Fondo oscuro del área de trazado */
+}
+
+/* Estilo para las líneas de la cuadrícula horizontal */
+.chart-horizontal-grid-lines {
+    -fx-stroke: #444444; /* Un gris oscuro sutil para las líneas de la cuadrícula */
+    -fx-stroke-width: 0.5px; /* Líneas finas */
+    /* Opcional: hacer las líneas punteadas */
+    /* -fx-stroke-dash-array: 2 5; */
+}
+
+/* Estilo para las líneas de la cuadrícula vertical */
+.chart-vertical-grid-lines {
+    -fx-stroke: #444444; /* Un gris oscuro sutil para las líneas de la cuadrícula */
+    -fx-stroke-width: 0.5px; /* Líneas finas */
+     /* Opcional: hacer las líneas punteadas */
+    /* -fx-stroke-dash-array: 2 5; */
+}
+
+/* Estilo para los ejes (líneas principales) */
+.axis {
+    -fx-stroke: #444444; /* Color del eje */
+    /* El color del texto de las etiquetas de los ticks (#tick-label-fill) se define a continuación en .axis-label o directamente */
+    -fx-tick-label-fill: #00FF00; /* Verde para las etiquetas de los ticks (los números si están visibles) */
+    -fx-tick-label-font-size: 0.9em; /* Tamaño de fuente para las etiquetas de tick */
+}
+
+/* Estilo para las marcas de "tick" en los ejes */
+.axis:axis-tick-mark {
+    -fx-stroke: #444444; /* Color de las marcas de tick */
+}
+
+
+/* Estilo para las etiquetas principales de los ejes (ej: "Tiempo", "Actividad Eléctrica (mV)") */
+.axis-label {
+    -fx-text-fill: #00FF00; /* Color del texto de la etiqueta (verde) */
+    -fx-font-size: 1em; /* Tamaño de fuente para la etiqueta */
+    -fx-font-weight: bold;
+}
+
+
+/* Estilo para la línea de la serie de datos (la línea del ECG) */
+.chart-series-line {
+    -fx-stroke: #00FF00; /* Verde brillante */
+    -fx-stroke-width: 2px; /* Ancho de la línea */
+}
+
+/* Opcional: Ocultar los puntos individuales de la serie si no los quieres */
+.chart-series-node {
+    -fx-background-color: transparent; /* Hace que el nodo del punto sea transparente */
+    -fx-background-radius: 0; /* Asegura que no haya radio aunque el fondo fuera visible */
+    -fx-padding: 0; /* Elimina cualquier padding alrededor del punto */
+}
+
+/* --- Estilos para la Leyenda --- */
+
+.chart-legend {
+    -fx-background-color: #1a1a1a; /* Fondo oscuro para la caja de la leyenda */
+    -fx-text-fill: #00FF00; /* Color del texto principal (puede ser sobrescrito) */
+    -fx-border-color: #444444; /* Borde sutil */
+    -fx-border-width: 1px;
+    -fx-padding: 5px; /* Espacio interno */
+}
+
+/* Estilo para cada item individual dentro de la leyenda (el nombre de la serie, ej "ECG Data") */
+.chart-legend-item {
+     -fx-text-fill: #00FF00; /* Asegura que el texto del nombre de la serie sea verde */
+}
+
+
+
+
+/* --- 3. Estilos Adicionales para tu FXML (Títulos, Etiquetas) --- */
+
+/* Estilo para el Label del título "ECG MONITOR" y potencialmente otros Labels genéricos */
+.label {
+    -fx-text-fill: #00FF00; /* Color del texto verde para los labels */
+     /* La fuente y tamaño ya están en FXML, lo cual es una buena práctica. */
+     /* Puedes sobrescribirlos aquí si lo deseas: */
+     /* -fx-font-size: 25px; */
+     /* -fx-font-weight: bold; */
+}
+
+
+/* Estilo específico para la etiqueta de frecuencia cardíaca por su ID */
+#labelHeartRate {
+    -fx-text-fill: #00FF00; /* Cambia el color del texto a verde */
+    /* La fuente Digital-7 y tamaño están en FXML y se mantendrán */
+}
+
+/* Estilo para el Label del corazón emoji (basado en su ubicación en el FXML) */
+/* Este selector es específico para el Label dentro del GridPane anidado en el BorderPane derecho */
+.grid-pane > .border-pane > .grid-pane > .label {
+     -fx-text-fill: #00FF00; /* Intenta poner el emoji verde */
+     -fx-font-size: 36px; /* Mantiene el tamaño definido en FXML */
+}
+
+
+/* Opcional: Estilo para los ejes para hacerlos "glow" un poco (requiere efectos) */
+/* .axis {
+     -fx-effect: dropshadow(gaussian, #00FF00, 5, 0, 0, 0);
+} */
+
+/* Opcional: Estilo para la línea del ECG para hacerla "glow" */
+/* .chart-series-line {
+     -fx-effect: dropshadow(gaussian, #00FF00, 10, 0, 0, 0);
+} */

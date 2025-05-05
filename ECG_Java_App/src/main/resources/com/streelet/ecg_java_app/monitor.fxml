@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.streelet.ecg_java_app.EcgMonitorController">
+   <center>
+      <LineChart fx:id="ecgChart" prefHeight="283.0" prefWidth="494.0" BorderPane.alignment="CENTER">
+        <xAxis>
+          <NumberAxis label="Onda PQRST" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis label="Actividad Eléctrica (mV)" side="LEFT" /> </yAxis>
+      </LineChart>
+   </center>
+   <left>
+      <Pane prefHeight="518.0" prefWidth="119.0" BorderPane.alignment="CENTER" />
+   </left>
+   <bottom>
+      <GridPane prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+   </bottom>
+   <top>
+      <Label prefHeight="51.0" prefWidth="174.0" text="ECG MONITOR" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+   </top>
+   <right>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.199951171875" minWidth="10.0" prefWidth="48.79998779296875" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.80001220703124" minWidth="10.0" prefWidth="204.80001220703124" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.2000732421875" minWidth="10.0" prefWidth="46.40003967285156" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+               <center>
+                  <Label fx:id="labelHeartRate" prefHeight="130.0" prefWidth="98.0" text="80" textFill="#292d96" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Digital-7 Mono" size="75.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+         </children>
+      </GridPane>
+   </right>
+</BorderPane>

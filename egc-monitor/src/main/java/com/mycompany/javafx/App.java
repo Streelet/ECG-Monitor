@@ -1,4 +1,4 @@
-package com.mycompany.javafx;
+package com.mycompany.ecg;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,7 +16,7 @@ public class App extends Application {
  @Override
 public void start(Stage stage) throws IOException {
     scene = new Scene(loadFXML("design"), 823, 534);
-    scene.getStylesheets().add(getClass().getResource("/com/mycompany/javafx/styles.css").toExternalForm());
+    scene.getStylesheets().add(getClass().getResource("/com/mycompany/ex/styles.css").toExternalForm());
     stage.setTitle("Monitor - Electrocardiograma");
     stage.setScene(scene);
     stage.show();
@@ -27,7 +27,7 @@ public void start(Stage stage) throws IOException {
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/com/mycompany/javafx/design.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/com/mycompany/ecg/design.fxml"));
         return fxmlLoader.load();
     }
 
