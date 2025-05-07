@@ -19,6 +19,12 @@ public class EcgDataModel {
     // Variables de estado para la detección de flanco
     private boolean wasBelowThreshold = true;
     private final int beepThreshold;
+    private final int numberOfBeatsToAverage = 5;
+    private List<Integer> bpmHistory = new ArrayList<>();
+    
+    private long lastPeakTime = -1;
+    private int currentBpm = 0;
+    private final int samplingRate = 250;
 
     // Lista de oyentes que serán notificados cuando se detecte un pico
     private List<EcgPeakListener> listeners = new ArrayList<>();
@@ -75,7 +81,44 @@ public class EcgDataModel {
         // Si se detecta un flanco de subida, notifica a todos los oyentes
         if (isRisingEdge) {
             System.out.println("DEBUG Model: Pico detectado en time=" + currentTime + ", value=" + currentValue + ". Notificando a oyentes.");
-            // Notifica a todos los oyentes registrados llamando a su método onPeakDetected
+            
+         
+         if(lastPeakTime !=-1){
+             long intervalSamples = currentTime- lastPeakTime;
+             
+             //Solo asegurar que es positivo
+             if(intervalSamples >0){
+                 double instantaneousBpm = (double)samplingRate * 60 / intervalSamples;
+                 bpmHistory.add((int) Math.round(instantaneousBpm));
+                 System.out.println("BPM ACTUAL " + instantaneousBpm);
+                 System.out.println("BPM " + currentBpm);
+                 
+                 /*Mantener la lista en el numero de datos especificado por
+                 @numberOfBeatsToAverage
+                 */
+                 while (bpmHistory.size() > numberOfBeatsToAverage){
+                     bpmHistory.remove(0);
+                 }
+                 
+                 double sumBpm = 0;
+                 for(int bpm : bpmHistory){
+                 sumBpm += bpm;
+             }
+                currentBpm = (int) Math.round(sumBpm / bpmHistory.size()); 
+                 
+             } //Fin del If de Lectura de Pico R
+             else {
+                 System.out.println("El intervalo entre picos de onda R es 0 ");
+             }
+         }
+         else {
+                System.out.println("Se detecta el primer pico");
+                currentBpm = 0;
+         }
+
+         lastPeakTime = currentTime;
+
+// Notifica a todos los oyentes registrados llamando a su método onPeakDetected
             for (EcgPeakListener listener : listeners) {
                 // Llama al método definido en la interfaz EcgPeakListener
                 listener.onPeakDetected(currentValue, currentTime);
@@ -90,11 +133,18 @@ public class EcgDataModel {
 
     public void resetState() {
         wasBelowThreshold = true;
+        lastPeakTime = -1;
+        currentBpm= 0;
+        bpmHistory.clear();
         System.out.println("DEBUG Model: Estado restablecido.");
     }
 
 
     public int getBeepThreshold() {
         return beepThreshold;
+    }
+    
+    public int getCurrentBpm(){
+        return currentBpm;
     }
 }

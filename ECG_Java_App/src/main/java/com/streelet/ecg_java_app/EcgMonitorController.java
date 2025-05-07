@@ -14,6 +14,9 @@ import com.streelet.ecg_java_app.serial.SerialDataListener;
 import com.streelet.ecg_java_app.serial.SerialDataManager;
 import com.streelet.ecg_java_app.model.EcgDataModel;
 import com.streelet.ecg_java_app.model.EcgPeakListener;
+import javafx.scene.shape.Circle;
+import javafx.animation.PauseTransition; 
+import javafx.util.Duration; 
 
 
 // El Controlador implementa SerialDataListener y EcgPeakListener
@@ -22,8 +25,11 @@ public class EcgMonitorController implements SerialDataListener, EcgPeakListener
     @FXML
     private LineChart<Number, Number> ecgChart;
 
-    // @FXML
-    // private Label labelHeartRate;
+     @FXML
+     private Label labelHeartRate;
+     
+     @FXML
+     private Circle beatCircle;
 
     private SerialDataManager serialDataManager;
     private XYChart.Series<Number, Number> ecgSeries;
@@ -41,7 +47,12 @@ public class EcgMonitorController implements SerialDataListener, EcgPeakListener
     @FXML
     public void initialize() {
         System.out.println("EcgMonitorController: Inicializando...");
-
+        
+        
+        if(beatCircle != null){
+            beatCircle.setOpacity(0.0);
+        }
+        
         // --- Configuración de la Gráfica ---
         ecgSeries = new XYChart.Series<>();
         ecgSeries.setName("Onda PQRST");
@@ -53,8 +64,8 @@ public class EcgMonitorController implements SerialDataListener, EcgPeakListener
         //Configuracion de Eje Y para no dejar espacio en blanco
         NumberAxis yAxis = (NumberAxis) ecgChart.getYAxis();
         yAxis.setAutoRanging(false);
-        yAxis.setUpperBound(520);
-        yAxis.setLowerBound(270);
+        yAxis.setUpperBound(1200);
+        yAxis.setLowerBound(0);
         
         //Configuración del Eje X para Desplazamiento   
         NumberAxis xAxis = (NumberAxis) ecgChart.getXAxis();
@@ -72,7 +83,7 @@ public class EcgMonitorController implements SerialDataListener, EcgPeakListener
         serialDataManager = new SerialDataManager();
         serialDataManager.addListener(this); // Este controlador se registra como SerialDataListener
 
-        ecgDataModel = new EcgDataModel(400);
+        ecgDataModel = new EcgDataModel(830);
         ecgDataModel.addPeakListener(this); // Este controlador se registra como EcgPeakListener
 
 
@@ -164,6 +175,19 @@ public class EcgMonitorController implements SerialDataListener, EcgPeakListener
             }
 
           
+            
+         //Para el Heart Rate
+         
+         int currentBpm = ecgDataModel.getCurrentBpm();
+         if(labelHeartRate != null){
+             if(currentBpm > 0){
+                 labelHeartRate.setText(currentBpm+"");
+             }
+             else  {
+                 labelHeartRate.setText("00");
+             }
+         }
+            
         });
     }
 
@@ -176,6 +200,24 @@ public class EcgMonitorController implements SerialDataListener, EcgPeakListener
      */
     @Override
     public void onPeakDetected(int peakValue, long time) {
+        
+        if (beatCircle != null) {
+        // Hacer el círculo completamente visible instantáneamente
+        beatCircle.setOpacity(1.0);
+
+        // Crear una transición de pausa que dure 300ms
+        PauseTransition fadeOut = new PauseTransition(Duration.millis(300));
+
+        // Al terminar la pausa, establecer la opacidad a 0
+        // La transición CSS hará que este cambio de 1.0 a 0.0 sea animado (el desvanecimiento)
+        fadeOut.setOnFinished(event -> {
+            beatCircle.setOpacity(0.0);
+        });
+
+        // Iniciar la pausa y, por lo tanto, la animación de desvanecimiento después
+        fadeOut.play();
+    }
+        
         // Acción a realizar cuando el Modelo detecta un pico
         // Aquí es donde disparamos el sonido del pitido
         System.out.println("DEBUG ECG: Pico detectado por el Modelo en time=" + time + ", value=" + peakValue + ". Llamando a Beep.play().");

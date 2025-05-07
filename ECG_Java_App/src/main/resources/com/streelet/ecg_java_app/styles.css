@@ -25,3 +25,20 @@
 .negative-button:pressed {
     -fx-background-color: #841420; /* Un rojo aún más oscuro al presionar */
 }
+
+
+/* Estilo para el Circle del beat visual */
+.beatCircle {
+    -fx-fill: #91ed57; /* Verde */
+    -fx-radius: 11.0;
+    -fx-stroke: transparent;
+    -fx-stroke-type: inside;
+
+    /* Controlar la opacidad */
+    -fx-opacity: 1.0; /* Opcional: Opacidad por defecto en CSS (la estableceremos a 0 en Java al inicio) */
+
+    /* Añadir una transición suave para la opacidad */
+    /* Esto significa que los cambios en -fx-opacity duraran 0.3 segundos */
+    -fx-transition: -fx-opacity 0.3s ease-in-out;
+    /* 'ease-in-out' hace que la animacion empiece y termine suavemente */
+}

@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.streelet.ecg_java_app.EcgMonitorController">
@@ -36,18 +37,18 @@
       </GridPane>
    </bottom>
    <top>
-      <Label prefHeight="51.0" prefWidth="174.0" text="ECG MONITOR" BorderPane.alignment="CENTER">
+      <Label prefHeight="51.0" prefWidth="191.0" text="ECG MONITOR" BorderPane.alignment="CENTER">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
    </top>
    <right>
-      <GridPane BorderPane.alignment="CENTER">
+      <GridPane prefHeight="518.0" prefWidth="302.0" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.199951171875" minWidth="10.0" prefWidth="48.79998779296875" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.80001220703124" minWidth="10.0" prefWidth="204.80001220703124" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.2000732421875" minWidth="10.0" prefWidth="46.40003967285156" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.80001220703124" minWidth="10.0" prefWidth="131.66668701171875" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.33331298828125" minWidth="10.0" prefWidth="120.33331298828125" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -60,9 +61,14 @@
                <center>
                   <Label fx:id="labelHeartRate" prefHeight="130.0" prefWidth="98.0" text="80" textFill="#292d96" BorderPane.alignment="CENTER">
                      <font>
-                        <Font name="Digital-7 Mono" size="75.0" />
+                        <Font size="60.0" />
                      </font>
                   </Label>
+               </center>
+            </BorderPane>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+               <center>
+                  <Circle fx:id="beatCircle" fill="LIME" radius="11.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="beatCircle" BorderPane.alignment="CENTER" />
                </center>
             </BorderPane>
          </children>
