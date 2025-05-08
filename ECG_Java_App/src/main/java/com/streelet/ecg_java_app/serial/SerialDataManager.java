@@ -123,14 +123,15 @@ public class SerialDataManager {
 
      */
 
-    public void startReading(String portName, int baudRate) {
+    public boolean startReading(String portName, int baudRate) {
 
         if (reading) {
 
             System.out.println("SerialDataManager: Ya leyendo de un puerto serial.");
 
-            return;
-
+            return true ;
+            
+            
         }
 
 
@@ -160,7 +161,7 @@ public class SerialDataManager {
 
             currentPort = null; // Aseguramos que no quede guardado el nombre del puerto
 
-            return;
+            return false;
 
         }
 
@@ -355,7 +356,7 @@ public class SerialDataManager {
 
         }); // Fin de submit().
 
-
+        return false;
     } //Final del método
 
     

@@ -115,6 +115,8 @@ public class Beep {
              System.out.println("DEBUG Beep: AudioCue apagado (estado interno actualizado).");
         }
     }
+    
+
 
     // --- Método main de Ejemplo para la clase Beep usando AudioCue ---
     public static void main(String[] args) {

@@ -1,0 +1,49 @@
+.root {
+    -fx-background-color: #1A1A2E; /* Fondo oscuro elegante */
+}
+
+.label {
+    -fx-text-fill: #EAEAEA;
+    -fx-font-family: "Segoe UI";
+}
+
+.button {
+    -fx-background-color: linear-gradient(#F0F0F0, #C0C0C0);
+    -fx-text-fill: #1A1A2E;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+    -fx-padding: 8px 16px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(#ffffff, #bdbdbd);
+}
+
+.text-field, .text-area, .combo-box, .choice-box, .date-picker {
+    -fx-background-color: #2E2E3E;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: #5A5A89;
+    -fx-border-radius: 4;
+}
+
+.text-area .content {
+    -fx-background-color: #2E2E3E;
+}
+
+.date-picker .text-field {
+    -fx-text-fill: #ffffff;
+}
+
+#clockLabel {
+    -fx-text-fill: white;
+    -fx-font-size: 50px;
+    -fx-font-weight: bold;
+}
+
+#amPmLabel {
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
