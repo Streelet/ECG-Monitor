@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="overlayRoot" alignment="CENTER" styleClass="disconnected-overlay" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox alignment="CENTER" spacing="25" styleClass="overlay-panel">
+            <padding>
+                <Insets bottom="40" left="40" right="40" top="40" />
+            </padding>
+            <children>
+                <Label fx:id="overlayTitle" styleClass="overlay-title" text="SE HAN DESCONECTADO LOS ELECTRODOS" textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font name="System Bold" size="34.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="10.0" />
+                    </VBox.margin>
+                </Label>
+
+                <HBox alignment="CENTER" spacing="40" VBox.vgrow="ALWAYS">
+                    <children>
+                        <TextArea fx:id="overlayInstructions" cacheShape="false" centerShape="false" editable="false" focusTraversable="false" scaleShape="false" styleClass="overlay-message-area" text="          La monitorización del ECG se ha detenido debido a una desconexión.&#10;&#10;&#10;        Instrucciones para restablecer la conexión:&#10;&#10;            • Asegúrese de que los electrodos estén bien adheridos a la piel.&#10;               (Limpie y seque la piel si es necesario antes de aplicar).&#10;&#10;            • Verifique que los cables estén firmemente conectados a los electrodos&#10;               y a los pines de entrada del dispositivo AD8232.&#10;&#10;            • Pida al paciente que se mantenga lo más quieto posible&#10;               durante la monitorización." HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets bottom="0" top="0" />
+                            </VBox.margin>
+                        </TextArea>
+
+                        <ImageView fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/electrodes_placement.png" />
+                            </image>
+                            <VBox.margin>
+                                <Insets bottom="0" top="0" />
+                            </VBox.margin>
+                        </ImageView>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</StackPane>

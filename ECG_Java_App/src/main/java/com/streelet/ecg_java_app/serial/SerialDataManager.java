@@ -243,7 +243,16 @@ public class SerialDataManager {
                          */
 
                         line = portScanner.nextLine();
-
+                        
+                        
+                        String trimmedLine = line.trim();
+                        
+                        
+                        if(trimmedLine.contains("STATUS:ELECTRODES_DISCONNECTED")){
+                            //Notificar el estado
+                            notifyErrorOccurred("STATUS:ELECTRODES_DISCONNECTED");
+                            continue; //Saltar iteracion del bucle
+                        }
 
                         // Se intenta parsear el dato leído como entero.
 

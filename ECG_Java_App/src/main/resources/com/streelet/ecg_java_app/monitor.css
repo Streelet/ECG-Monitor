@@ -49,7 +49,7 @@
 .axis {
     -fx-stroke: #444444; /* Color del eje */
     /* El color del texto de las etiquetas de los ticks (#tick-label-fill) se define a continuación en .axis-label o directamente */
-    -fx-tick-label-fill: #00FF00; /* Verde para las etiquetas de los ticks (los números si están visibles) */
+    -fx-tick-label-fill: #D8CBFA; /* Verde para las etiquetas de los ticks (los números si están visibles) */
     -fx-tick-label-font-size: 0.9em; /* Tamaño de fuente para las etiquetas de tick */
 }
 
@@ -61,7 +61,7 @@
 
 /* Estilo para las etiquetas principales de los ejes (ej: "Tiempo", "Actividad Eléctrica (mV)") */
 .axis-label {
-    -fx-text-fill: #00FF00; /* Color del texto de la etiqueta (verde) */
+    -fx-text-fill: #D8CBFA; /* Color del texto de la etiqueta (verde) */
     -fx-font-size: 1em; /* Tamaño de fuente para la etiqueta */
     -fx-font-weight: bold;
 }
@@ -69,7 +69,7 @@
 
 /* Estilo para la línea de la serie de datos (la línea del ECG) */
 .chart-series-line {
-    -fx-stroke: #00FF00; /* Verde brillante */
+    -fx-stroke: #D8CBFA; /* Verde brillante */
     -fx-stroke-width: 2px; /* Ancho de la línea */
 }
 
@@ -84,7 +84,7 @@
 
 .chart-legend {
     -fx-background-color: #1a1a1a; /* Fondo oscuro para la caja de la leyenda */
-    -fx-text-fill: #00FF00; /* Color del texto principal (puede ser sobrescrito) */
+    -fx-text-fill: #D8CBFA; /* Color del texto principal (puede ser sobrescrito) */
     -fx-border-color: #444444; /* Borde sutil */
     -fx-border-width: 1px;
     -fx-padding: 5px; /* Espacio interno */
@@ -92,7 +92,7 @@
 
 /* Estilo para cada item individual dentro de la leyenda (el nombre de la serie, ej "ECG Data") */
 .chart-legend-item {
-     -fx-text-fill: #00FF00; /* Asegura que el texto del nombre de la serie sea verde */
+     -fx-text-fill: #D8CBFA; /* Asegura que el texto del nombre de la serie sea verde */
 }
 
 
@@ -102,7 +102,7 @@
 
 /* Estilo para el Label del título "ECG MONITOR" y potencialmente otros Labels genéricos */
 .label {
-    -fx-text-fill: #00FF00; /* Color del texto verde para los labels */
+    -fx-text-fill: #D8CBFA; /* Color del texto verde para los labels */
      /* La fuente y tamaño ya están en FXML, lo cual es una buena práctica. */
      /* Puedes sobrescribirlos aquí si lo deseas: */
      /* -fx-font-size: 25px; */
@@ -112,24 +112,133 @@
 
 /* Estilo específico para la etiqueta de frecuencia cardíaca por su ID */
 #labelHeartRate {
-    -fx-text-fill: #00FF00; /* Cambia el color del texto a verde */
+    -fx-text-fill: #D8CBFA; /* Cambia el color del texto a verde */
     /* La fuente Digital-7 y tamaño están en FXML y se mantendrán */
 }
 
 /* Estilo para el Label del corazón emoji (basado en su ubicación en el FXML) */
 /* Este selector es específico para el Label dentro del GridPane anidado en el BorderPane derecho */
 .grid-pane > .border-pane > .grid-pane > .label {
-     -fx-text-fill: #00FF00; /* Intenta poner el emoji verde */
+     -fx-text-fill: #D8CBFA; /* Intenta poner el emoji verde */
      -fx-font-size: 36px; /* Mantiene el tamaño definido en FXML */
 }
 
 
 /* Opcional: Estilo para los ejes para hacerlos "glow" un poco (requiere efectos) */
 /* .axis {
-     -fx-effect: dropshadow(gaussian, #00FF00, 5, 0, 0, 0);
+     -fx-effect: dropshadow(gaussian, #D8CBFA, 5, 0, 0, 0);
 } */
 
-/* Opcional: Estilo para la línea del ECG para hacerla "glow" */
-/* .chart-series-line {
-     -fx-effect: dropshadow(gaussian, #00FF00, 10, 0, 0, 0);
-} */
+
+/*Opcional: Estilo para la línea del ECG para hacerla "glow"*/ 
+.chart-series-line {
+     -fx-effect: dropshadow(gaussian, #D8CBFA, 10, 0, 0, 0);
+} 
+
+
+
+
+
+/* --- Estilos para el Overlay de Estado --- */
+
+/* Estilo para el StackPane raiz del overlay (cubre toda la ventana) */
+.disconnected-overlay {
+    /* CAMBIADO: Fondo negro solido, igual que el del monitor */
+    -fx-background-color: #1a1a1a;
+    /* La opacidad animada (fade-in/out) se controla desde JavaFX */
+}
+
+/* Estilo para el panel interior (el VBox centrado). */
+/* Queremos que ocupe el ancho completo (controlado por FXML) y no tenga bordes ni fondo propio. */
+.overlay-panel {
+    /* CAMBIADO: Fondo transparente para el panel */
+    -fx-background-color: transparent;
+    /* CAMBIADO: Sin esquinas redondeadas */
+    -fx-background-radius: 0;
+    /* Mantenido: Espacio interno (ajusta si es necesario) */
+    -fx-padding: 40px;
+    /* CAMBIADO: Sin borde */
+    -fx-border-width: 0;
+    -fx-border-color: transparent; /* Asegurarse */
+    /* Mantenido: Centra el contenido DENTRO del VBox */
+    -fx-alignment: center;
+    /* Mantenido: Espacio entre los elementos hijos del VBox (debe coincidir con FXML) */
+    -fx-spacing: 25px;
+    /* CAMBIADO: Eliminar sombra si ya no hay borde/fondo en el panel */
+    -fx-effect: none;
+
+    /* NOTA: Para que el VBox ocupe el ancho completo visualmente,
+             la transparencia y el padding grande ayudan. La realocacion de
+             espacio completo se logra quitando maxWidth del VBox en FXML y
+             confiando en el StackPane padre. */
+}
+
+/* Estilo para la etiqueta del título dentro del panel */
+.overlay-panel .overlay-title {
+    /* CAMBIADO: Color del texto verde, como el monitor */
+    -fx-text-fill: #D8CBFA;
+    /* Mantenido: Tamaño y peso de fuente (ajusta si cambiaste en FXML) */
+    -fx-font-size: 34px;
+    -fx-font-weight: bold;
+    /* text-alignment="CENTER" en FXML deberia centrar el texto */
+}
+
+/* Estilo para la UNICA Area de Texto de instrucciones */
+.overlay-message-area {
+    -fx-background-color: transparent; /* Fondo externo transparente */
+    -fx-control-inner-background: transparent; /* Fondo interno transparente */
+    /* CAMBIADO: Color del texto verde, como el monitor */
+    -fx-text-fill: #D8CBFA;
+    /* Mantenido: Tamaño de fuente (ajusta si cambiaste en FXML) */
+    -fx-font-size: 16px;
+    -fx-padding: 0; /* Elimina padding por defecto del TextArea */
+    -fx-highlight-fill: rgba(0, 255, 0, 0.3); /* Ejemplo: Resaltado verde semi-transparente */
+    -fx-highlight-text-fill: #FFFFFF; /* Texto blanco al seleccionar */
+    -fx-display-caret: false; /* Oculta el cursor parpadeante */
+    -fx-border-color: transparent; /* Sin borde */
+    -fx-box-border: transparent; /* Sin borde de caja */
+}
+
+/* Ocultar las barras de desplazamiento del TextArea */
+.overlay-message-area .scroll-pane {
+    -fx-padding: 0; /* Asegura que no haya padding empujando las barras */
+    -fx-hbar-policy: never; /* Oculta la barra horizontal */
+    -fx-vbar-policy: never; /* Oculta la barra vertical */
+}
+
+/* Asegurar que los elementos visuales de la barra de desplazamiento no se muestren */
+.overlay-message-area .scroll-pane .scroll-bar {
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
+    -fx-min-width: 0;
+    -fx-min-height: 0;
+    -fx-max-width: 0;
+    -fx-max-height: 0;
+    -fx-opacity: 0;
+    visibility: hidden;
+    display: none;
+}
+
+/* Mantiene la transparencia en las sub-areas del TextArea */
+.overlay-message-area .viewport {
+    -fx-background-color: transparent;
+}
+
+.overlay-message-area .content {
+     -fx-background-color: transparent;
+}
+
+/* Eliminar efectos de hover/focus en el TextArea */
+.overlay-message-area:hover {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+}
+
+.overlay-message-area:focused {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+    -fx-border-color: transparent;
+    -fx-box-border: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: transparent;
+}

@@ -3,75 +3,115 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.streelet.ecg_java_app.EcgMonitorController">
-   <center>
-      <LineChart fx:id="ecgChart" prefHeight="283.0" prefWidth="494.0" BorderPane.alignment="CENTER">
-        <xAxis>
-          <NumberAxis label="Onda PQRST" side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis label="Actividad Eléctrica (mV)" side="LEFT" /> </yAxis>
-      </LineChart>
-   </center>
-   <left>
-      <Pane prefHeight="518.0" prefWidth="119.0" BorderPane.alignment="CENTER" />
-   </left>
-   <bottom>
-      <GridPane prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-      </GridPane>
-   </bottom>
-   <top>
-      <Label prefHeight="51.0" prefWidth="191.0" text="ECG MONITOR" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="System Bold" size="25.0" />
-         </font>
-      </Label>
-   </top>
-   <right>
-      <GridPane prefHeight="518.0" prefWidth="302.0" BorderPane.alignment="CENTER">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.199951171875" minWidth="10.0" prefWidth="48.79998779296875" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.80001220703124" minWidth="10.0" prefWidth="131.66668701171875" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.33331298828125" minWidth="10.0" prefWidth="120.33331298828125" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-               <center>
-                  <Label fx:id="labelHeartRate" prefHeight="130.0" prefWidth="98.0" text="80" textFill="#292d96" BorderPane.alignment="CENTER">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.streelet.ecg_java_app.EcgMonitorController"> <children>
+        <BorderPane prefHeight="614.0" prefWidth="1020.0"> <center>
+                 <LineChart fx:id="ecgChart" prefHeight="283.0" prefWidth="494.0" BorderPane.alignment="CENTER">
+                     <xAxis>
+                         <NumberAxis label="Onda PQRST" side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                         <NumberAxis label="Actividad Eléctrica (mV)" side="LEFT" />
+                     </yAxis>
+                 </LineChart>
+             </center>
+             <left>
+                 <Pane prefHeight="518.0" prefWidth="119.0" BorderPane.alignment="CENTER" />
+             </left>
+             <bottom>
+                 <GridPane prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                     <columnConstraints>
+                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                 </GridPane>
+             </bottom>
+             <top>
+                 <Label prefHeight="51.0" prefWidth="191.0" text="ECG MONITOR" BorderPane.alignment="CENTER">
                      <font>
-                        <Font size="60.0" />
+                         <Font name="System Bold" size="25.0" />
                      </font>
-                  </Label>
-               </center>
-            </BorderPane>
-            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+                 </Label>
+             </top>
+         <right>
+            <BorderPane prefHeight="517.0" prefWidth="259.0" BorderPane.alignment="CENTER">
+               <top>
+                  <BorderPane prefHeight="200.0" prefWidth="352.0" BorderPane.alignment="CENTER">
+                     <top>
+                        <Label text="BPM" BorderPane.alignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="30.0" />
+                           </font>
+                        </Label>
+                     </top>
+                     <left>
+                                 <Label fx:id="labelHeartRate" prefHeight="130.0" prefWidth="91.0" text="80" textFill="#292d96" BorderPane.alignment="CENTER">
+                                     <font>
+                                         <Font size="60.0" />
+                                     </font>
+                                 </Label>
+                     </left>
+                     <center>
+                                 <Circle fx:id="beatCircle" fill="LIME" radius="11.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="beatCircle" BorderPane.alignment="CENTER" />
+                     </center>
+                  </BorderPane>
+               </top>
                <center>
-                  <Circle fx:id="beatCircle" fill="LIME" radius="11.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="beatCircle" BorderPane.alignment="CENTER" />
+                  <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <center>
+                        <GridPane prefHeight="317.0" prefWidth="327.0" BorderPane.alignment="CENTER">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                 <top>
+                                    <Label text="Datos del Paciente" BorderPane.alignment="CENTER">
+                                       <font>
+                                          <Font size="21.0" />
+                                       </font>
+                                    </Label>
+                                 </top>
+                                 <center>
+                                    <TextArea cacheShape="false" centerShape="false" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" scaleShape="false" styleClass="overlay-message-area" text="&#10;Erick Estuardo Pineda Palma.&#10;&#10;Sin antecedentes de citas previas.&#10;&#10;Alérgico a la Penicilina." BorderPane.alignment="CENTER" />
+                                 </center>
+                              </BorderPane>
+                              <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                 <center>
+                                    <Label text="Arquitectura de Computadores y Ensambladores 2" BorderPane.alignment="CENTER">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Label>
+                                 </center>
+                              </BorderPane>
+                           </children>
+                        </GridPane>
+                     </center>
+                  </BorderPane>
                </center>
             </BorderPane>
-         </children>
-      </GridPane>
-   </right>
-</BorderPane>
+         </right>
+         </BorderPane>
+
+        <fx:include fx:id="electrodesDisconnectedOverlay" source="ElectrodesDisconnectedOverlay.fxml" />
+
+    </children>
+</StackPane>

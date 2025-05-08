@@ -12,6 +12,7 @@
 <?import javafx.scene.shape.Polyline?>
 <?import javafx.scene.text.Font?>
 
+
 <VBox alignment="CENTER" prefHeight="534.0" prefWidth="823.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.streelet.ecg_java_app.StartController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="540.0" prefWidth="823.0" VBox.vgrow="ALWAYS">

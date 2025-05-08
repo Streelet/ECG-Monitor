@@ -24,7 +24,7 @@ public class EcgDataModel {
     
     private long lastPeakTime = -1;
     private int currentBpm = 0;
-    private final int samplingRate = 250;
+    private final int bpmCalculusSamplingRate = 200;
 
     // Lista de oyentes que serán notificados cuando se detecte un pico
     private List<EcgPeakListener> listeners = new ArrayList<>();
@@ -88,7 +88,7 @@ public class EcgDataModel {
              
              //Solo asegurar que es positivo
              if(intervalSamples >0){
-                 double instantaneousBpm = (double)samplingRate * 60 / intervalSamples;
+                 double instantaneousBpm = bpmCalculusSamplingRate * 60 / intervalSamples;
                  bpmHistory.add((int) Math.round(instantaneousBpm));
                  System.out.println("BPM ACTUAL " + instantaneousBpm);
                  System.out.println("BPM " + currentBpm);
