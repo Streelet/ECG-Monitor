@@ -7,4 +7,7 @@
 
 ![Monitorización de Pulso del Paciente](https://i.imgur.com/qwVmK5X.png)
 
+![Control de Estado de Electrodos]([https://i.imgur.com/qwVmK5X.png](https://i.imgur.com/RQMeE5J.png)
+
+
 
