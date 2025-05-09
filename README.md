@@ -3,3 +3,6 @@
 
  
 ![Pantalla de Ingreso de Datos](https://i.imgur.com/2gTmyAb.png)
+
+
+![Monitorización de Pulso del Paciente](https://i.imgur.com/DMyQCPu.gif)
