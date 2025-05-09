@@ -5,6 +5,6 @@
 ![Pantalla de Ingreso de Datos](https://i.imgur.com/2gTmyAb.png)
 
 
-![Monitorización de Pulso del Paciente](blob:https://imgur.com/3f72f3ab-be05-4ed1-a764-952b84750abf)
+![Monitorización de Pulso del Paciente](https://i.imgur.com/qwVmK5X.png)
 
 
