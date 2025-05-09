@@ -60,7 +60,7 @@
                      <left>
                                  <Label fx:id="labelHeartRate" prefHeight="130.0" prefWidth="91.0" text="80" textFill="#292d96" BorderPane.alignment="CENTER">
                                      <font>
-                                         <Font size="60.0" />
+                                         <Font size="52.0" />
                                      </font>
                                  </Label>
                      </left>

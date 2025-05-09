@@ -182,7 +182,6 @@ public class SerialDataManager {
         currentPort.setComPortTimeouts(SerialPort.TIMEOUT_SCANNER, 0, 0);
 
 
-        // Crear un ExecutorService de un solo hilo para ejecutar la tarea de lectura en segundo plano.
 
         // Solo crear uno si no existe o si el que existe está apagado.
 

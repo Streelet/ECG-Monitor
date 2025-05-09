@@ -163,7 +163,6 @@ public class StartController implements Initializable {
         LocalDate birthDate = birthDatePicker != null ? birthDatePicker.getValue() : null;
         String medicalHistory = medicalHistoryArea != null ? medicalHistoryArea.getText() : "";
 
-        // 2. Recopilar el puerto serial seleccionado
         String selectedPort = (serialPortComboBox != null && serialPortComboBox.getSelectionModel().getSelectedItem() != null) ?
                               serialPortComboBox.getSelectionModel().getSelectedItem() : null;
 
@@ -174,8 +173,6 @@ public class StartController implements Initializable {
             return; // No continuar si no hay puerto
         }
 
-        // 3. Empaquetar los datos (puedes crear una pequeña clase para esto si son muchos)
-        // Crearemos una clase simple PatientData temporalmente
         PatientData patientData = new PatientData(patientName, gender, birthDate, medicalHistory);
 
         // 4. Notificar a la App para que cambie de escena y pase los datos
@@ -215,7 +212,6 @@ public class StartController implements Initializable {
     private void handleExitButton(ActionEvent event) {
         System.out.println("StartController: Boton 'Salir' clickeado. Cerrando aplicacion.");
         // Logica para cerrar la aplicacion
-        // Platform.exit(); // Si estas en App.java y tienes acceso al Stage, puedes cerrarlo.
         // Alternativamente, puedes notificar a App para que cierre.
          if (startMonitoringListener != null) {
              startMonitoringListener.onExit(); // Notificar a App para cerrar
@@ -237,7 +233,7 @@ public class StartController implements Initializable {
         void onExit(); // Para notificar a App que cierre
     }
 
-    // Clase simple para empaquetar los datos del paciente
+
     public static class PatientData {
         private final String name;
         private final String gender;
@@ -268,7 +264,6 @@ public class StartController implements Initializable {
         }
     }
 
-    // Opcional: Metodo cleanup si es necesario (ej. detener el timeline del reloj)
      public void shutdown() {
          // if (timeline != null) timeline.stop(); // Si timeline fuera un campo de clase
          System.out.println("StartController: Metodo shutdown() llamado.");

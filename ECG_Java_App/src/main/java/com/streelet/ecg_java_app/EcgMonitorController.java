@@ -19,18 +19,18 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
-import com.streelet.ecg_java_app.StartController.PatientData; // Importar PatientData (Necesario si la clase esta en StartController)
+import com.streelet.ecg_java_app.StartController.PatientData; 
 
 
-import java.net.URL; // Mantener
-import java.time.LocalTime; // Mantener si se usa
-import java.time.format.DateTimeFormatter; // Mantener si se usa
-import java.util.ResourceBundle; // Mantener
+import java.net.URL; 
+import java.time.LocalTime; 
+import java.time.format.DateTimeFormatter; 
+import java.util.ResourceBundle; 
 
 
 // El Controlador implementa SerialDataListener y EcgPeakListener
 // Implementa Initializable porque tiene un metodo initialize() que es llamado por FXMLLoader
-public class EcgMonitorController implements Initializable, SerialDataListener, EcgPeakListener { // Added Initializable
+public class EcgMonitorController implements Initializable, SerialDataListener, EcgPeakListener { 
 
     @FXML
     private LineChart<Number, Number> ecgChart;
@@ -48,50 +48,49 @@ public class EcgMonitorController implements Initializable, SerialDataListener, 
     @FXML
     private StackPane electrodesDisconnectedOverlay; // Nodo raiz del overlay FXML
     @FXML
-    private Label overlayTitle; // Etiqueta del titulo en el overlay
-    // Eliminamos overlayMessage (Label) ya que el overlay diseñado usa un TextArea para las instrucciones
-    // @FXML private Label overlayMessage; // <-- ELIMINAR ESTE CAMPO
+    private Label overlayTitle; 
+    
 
     // Campo @FXML para el UNICO TextArea de instrucciones en el overlay
-    // Asegurate que el fx:id en ElectrodesDisconnectedOverlay.fxml sea "overlayInstructionsPart1"
+
     @FXML
-    private TextArea overlayInstructionsPart1; // <-- CAMBIADO/AÑADIDO para coincidir con FXML diseñado
+    private TextArea overlayInstructionsPart1; // 
     // --- Fin Campos @FXML para el overlay ---
 
 
-    // --- Campos para almacenar los datos del paciente y el nombre del puerto recibidos de la pantalla de inicio (AÑADIR) ---
-    private PatientData patientData; // <-- AÑADIDO: Campo para datos del paciente
-    private String serialPortName; // <-- AÑADIDO: Campo para nombre del puerto
+   
+    private PatientData patientData; 
+    private String serialPortName; 
     // --- Fin Campos recibidos ---
 
 
-    // Constante con el texto completo de las instrucciones (Ya la tenias, solo la renombramos por claridad si quieres)
-    private static final String FULL_INSTRUCTIONS_TEXT = // <-- RENOMBRADA (o manten 'instructions' si prefieres)
+
+    private static final String FULL_INSTRUCTIONS_TEXT = // 
         "La monitorización del ECG se ha detenido.\n\n" +
         "Instrucciones:\n\n" +
         "• Asegúrese de que los electrodos estén bien adheridos a la piel.\n\n\n" +
         "• Verifique que los cables estén conectados firmemente \n" +
         "   a los electrodos y al dispositivo.\n\n\n" +
         "• Pida al paciente que se mantenga quieto si es posible.";
-        // NOTA: Asegurate que este texto coincide con la version final que quieres en el overlay.
-        // La version anterior que discutimos era un poco mas detallada. Usa la que prefieras.
+     
+       
 
 
-    private SerialDataManager serialDataManager; // Ya existe
+    private SerialDataManager serialDataManager; 
 
 
-    private XYChart.Series<Number, Number> ecgSeries; // Ya existe
+    private XYChart.Series<Number, Number> ecgSeries;
 
 
-    private long time = 0; // Ya existe
-    private final int WINDOW_SIZE = 250; // Ya existe
+    private long time = 0; 
+    private final int WINDOW_SIZE = 900; 
 
 
-    private EcgDataModel ecgDataModel; // Ya existe
+    private EcgDataModel ecgDataModel; 
 
 
-    private int consecutiveValidDataCount = 0; // Ya existe
-    private final int minConsecutiveValidData = 10; // Ya existe
+    private int consecutiveValidDataCount = 0; 
+    private final int minConsecutiveValidData = 10; 
 
 
     /**
@@ -101,11 +100,10 @@ public class EcgMonitorController implements Initializable, SerialDataListener, 
      */
     @FXML
     // Implementa Initializable si no estaba implementado en la firma de la clase
-    public void initialize(URL url, ResourceBundle resourceBundle) { // Añadidos parametros aunque no se usen si implementa Initializable
-        System.out.println("EcgMonitorController: Inicialización de UI completada."); // Mensaje ajustado
+    public void initialize(URL url, ResourceBundle resourceBundle) { 
+        System.out.println("EcgMonitorController: Inicialización de UI completada."); 
 
-        // ... Tu codigo de inicializacion existente (configurar grafica, modelo, AudioCue) ...
-        // Mantener todo el codigo de setup de la UI, grafica, modelo, Beep, etc.
+  
 
         if(beatCircle != null){
             beatCircle.setOpacity(0.0);
@@ -144,13 +142,6 @@ public class EcgMonitorController implements Initializable, SerialDataListener, 
         // --- Fin Configuración de la Gráfica ---
 
 
-        // --- ELIMINAR: La inicializacion del SerialDataManager y la llamada a handleConnectButton YA NO van AQUI ---
-        // serialDataManager = new SerialDataManager(); // <-- ELIMINAR ESTA LINEA
-        // serialDataManager.addListener(this); // <-- ELIMINAR ESTA LINEA
-
-        // Llama al método handleConnectButton() directamente para iniciar la lectura serial <-- ESTO TAMBIEN SE ELIMINA
-        // handleConnectButton(); // <-- ELIMINAR ESTA LINEA
-
 
         ecgDataModel = new EcgDataModel(945); // Ya existe, mantener
         ecgDataModel.addPeakListener(this); // Ya existe, mantener
@@ -169,7 +160,7 @@ public class EcgMonitorController implements Initializable, SerialDataListener, 
         System.out.println("EcgMonitorController: Inicialización completa.");
     }
 
-    // --- Metodo publico para recibir los datos y el puerto (AÑADIR) ---
+
     // Este metodo es llamado por App.java despues de initialize()
     // Asegurate de importar com.streelet.ecg_java_app.StartController.PatientData;
     public void setPatientDataAndPort(PatientData patientData, String portName) {
@@ -188,15 +179,12 @@ public class EcgMonitorController implements Initializable, SerialDataListener, 
              System.err.println("EcgMonitorController: ERROR: patientSummaryTextArea es null o patientData es null al intentar mostrar resumen.");
         }
 
-        // Opcional: Si tienes un Label en tu UI para mostrar el puerto en uso, actualizalo aqui.
-        // Necesitas añadir un Label con un fx:id (ej. portInUseLabel) en tu monitor.fxml
-        // @FXML private Label portInUseLabel;
-        // if (portInUseLabel != null) { portInUseLabel.setText("Puerto: " + portName); }
+
     }
     // --- Fin Metodo publico para recibir datos ---
 
 
-    // --- Metodo publico para iniciar la monitorizacion serial (AÑADIR) ---
+
     // Este metodo es llamado por App.java DESPUES de setPatientDataAndPort()
     public void startMonitoring() {
          System.out.println("EcgMonitorController: Iniciando monitorización serial...");
@@ -209,12 +197,10 @@ public class EcgMonitorController implements Initializable, SerialDataListener, 
              return; // Salir del metodo si no hay puerto
          }
 
-         // *** Ahora SI, crea e inicia el SerialDataManager AQUI ***
-         // Mover la logica de tu handleConnectButton a este metodo
-         serialDataManager = new SerialDataManager(); // Crea la instancia (Si tu constructor no necesita puerto)
-         serialDataManager.addListener(this); // Registra este controlador como listener
+         serialDataManager = new SerialDataManager();
+         serialDataManager.addListener(this); 
 
-         int baudRate = 9600; // Define la tasa de baudios (Puedes pasarla desde la pantalla de inicio si la recopilas)
+         int baudRate = 9600; 
 
          try {
              // Llama al metodo startReading con el puerto y baudRate
@@ -241,16 +227,7 @@ public class EcgMonitorController implements Initializable, SerialDataListener, 
     // --- Fin Metodo para iniciar monitorizacion serial ---
 
 
-    // --- ELIMINAR los metodos handleConnectButton y handleDisconnectButton (ya no se llaman desde FXML) ---
-    // Estos metodos fueron llamados desde botones en FXML en tu diseño original, pero ahora
-    // el inicio y fin de la monitorizacion se controlan desde App -> StartController -> App -> EcgMonitorController
-
-    // @FXML
-    // private void handleConnectButton() { ... } // <-- ELIMINAR ESTE METODO
-
-    // @FXML
-    // private void handleDisconnectButton() { ... } // <-- ELIMINAR ESTE METODO (La desconexion se hace en shutdown)
-    // --- Fin Eliminar metodos ---
+   
 
 
     /**
@@ -264,24 +241,16 @@ public class EcgMonitorController implements Initializable, SerialDataListener, 
 
         // Este metodo se ejecuta en un HILO SECUNDARIO (el hilo de lectura serial).
         // Para actualizar la UI o interactuar con el Modelo (si su lógica no es thread-safe)
-        // en el hilo de JavaFX, DEBES usar Platform.runLater.
 
         Platform.runLater(() -> {
 
 
-            // --- Incrementar el contador de datos validos consecutivos ---
-        // Este metodo solo se llama cuando llega un dato numerico VALIDO, asi que incrementamos.
-           consecutiveValidDataCount++; // <-- Asegurate de tener esta linea aqui
-           // System.out.println("EcgMonitorController: Dato valido recibido. Contador: " + consecutiveValidDataCount); // Debug opcional
-            // --- Fin Incrementar contador ---
+           consecutiveValidDataCount++; 
 
 
-            // --- Verificar si se cumplen las condiciones para ocultar el overlay ---
-            // Si el numero de datos validos consecutivos es suficiente (>= minConsecutiveValidData)
-            // Y el overlay de desconexion esta actualmente visible (isVisible())...
-            if (consecutiveValidDataCount >= minConsecutiveValidData && // <-- Usando tu variable 'minConsecutiveValidData'
-                electrodesDisconnectedOverlay != null && // <-- Asegurarse que el campo FXML no sea null
-                electrodesDisconnectedOverlay.isVisible()) { // <-- Asegurarse que el overlay esta visible
+            if (consecutiveValidDataCount >= minConsecutiveValidData && 
+                electrodesDisconnectedOverlay != null && //  Asegurarse que el campo FXML no sea null
+                electrodesDisconnectedOverlay.isVisible()) { 
 
                  System.out.println("EcgMonitorController: Recibidos " + minConsecutiveValidData + " datos validos consecutivos. Ocultando overlay.");
                  hideStatusOverlay(); // <-- Asegurate de que la llamada a hideStatusOverlay() este AQUI
@@ -289,8 +258,7 @@ public class EcgMonitorController implements Initializable, SerialDataListener, 
             // --- Fin Verificar y Ocultar overlay ---
 
 
-            // --- Logica existente para añadir datos a la grafica, procesar con el modelo, y desplazar el eje X ---
-            // Mantener todo este bloque
+
             ecgSeries.getData().add(new XYChart.Data<>(time, value));
 
             if (ecgDataModel != null) {
@@ -313,9 +281,9 @@ public class EcgMonitorController implements Initializable, SerialDataListener, 
             while (ecgSeries.getData().size() > 0 && ecgSeries.getData().get(0).getXValue().doubleValue() < currentLowerBound) {
                  ecgSeries.getData().remove(0);
             }
-            // --- Fin Logica existente ---
 
-            // Para el Heart Rate (Mantener este bloque)
+
+            // Para el Heart Rate 
             int currentBpm = ecgDataModel.getCurrentBpm();
             if(labelHeartRate != null){
                  if(currentBpm > 0){
@@ -346,17 +314,15 @@ public class EcgMonitorController implements Initializable, SerialDataListener, 
         // Crear una transición de pausa que dure 300ms
         PauseTransition fadeOut = new PauseTransition(Duration.millis(300));
 
-        // Al terminar la pausa, establecer la opacidad a 0
-        // La transición CSS hará que este cambio de 1.0 a 0.0 sea animado (el desvanecimiento)
         fadeOut.setOnFinished(event -> {
             beatCircle.setOpacity(0.0);
         });
 
-        // Iniciar la pausa y, por lo tanto, la animación de desvanecimiento después
+        // Iniciar la pausa y, por lo tanto, la animación 
         fadeOut.play();
     }
 
-        // Acción a realizar cuando el Modelo detecta un pico (Mantener esto)
+        // Acción a realizar cuando el Modelo detecta un pico 
         System.out.println("DEBUG ECG: Pico detectado por el Modelo en time=" + time + ", value=" + peakValue + ". Llamando a Beep.play().");
         Beep.play();
 
@@ -379,30 +345,25 @@ public class EcgMonitorController implements Initializable, SerialDataListener, 
             // --- Fin Reiniciar contador ---
 
 
-            // --- Verificar si el mensaje es un estado específico (usando startsWith) ---
+   
             if(message.startsWith("STATUS:")){
                 String statusType = message.substring("STATUS:".length());
 
                 if(statusType.contains("ELECTRODES_DISCONNECTED")){
-                    // Llama al metodo showStatusOverlay para mostrar el overlay de desconexion
-                    // Pasa solo el titulo; el texto completo de instrucciones se toma de la constante dentro de showStatusOverlay
-                    showStatusOverlay("SE HAN DESCONECTADO LOS ELECTRODOS"); // <-- AJUSTAR LLAMADA: Pasa solo el titulo
+                    showStatusOverlay("SE HAN DESCONECTADO LOS ELECTRODOS"); 
                 }
                 else if(statusType.equals("ELECTRODES_CONNECTED")){
                     System.out.println("Se han vuelto a conectar los electrodos");
-                    // Opcional: Si quieres hacer algo visual al reconectar, hazlo aqui.
-                    // El overlay se oculta automaticamente en onDataReceived si empiezan a llegar datos validos.
+
                 }
                 else {
                     System.out.println("Error desconocido");
-                    // Opcional: Mostrar otros mensajes de estado si los hay
-                    // showStatusOverlay("Estado Desconocido", message); // Ejemplo
+
                 }
             } else {
-                // Manejo de otros errores generales que no son mensajes de estado STATUS:
+
                 System.err.println("Error serial general: " + message);
-                // Opcional: Mostrar un overlay de error general si lo necesitas
-                // showStatusOverlay("ERROR SERIAL", message); // Ejemplo
+
             }
 
         });
@@ -419,25 +380,19 @@ public class EcgMonitorController implements Initializable, SerialDataListener, 
 
             if (overlayTitle != null) overlayTitle.setText(title); // Actualizar el titulo
 
-            // --- Actualizar el texto del UNICO TextArea de instrucciones ---
-            // Asegurarse que overlayInstructionsPart1 no sea null y usar la constante
+
             if (overlayInstructionsPart1 != null) {
-               overlayInstructionsPart1.setText(FULL_INSTRUCTIONS_TEXT); // <-- Usar la constante
-               overlayInstructionsPart1.setScrollTop(0); // Opcional: asegurar que el texto inicia arriba
-               // System.out.println("DEBUG: Texto de overlayInstructionsPart1 seteado."); // Debug opcional
-               // Las lineas comentadas originales usaban 'instructions', ahora usamos 'FULL_INSTRUCTIONS_TEXT'
-               //  overlayInstructions.setText(instructions); // <-- ELIMINAR/IGNORAR LINEA ORIGINAL
-               //     System.out.println(overlayInstructions.getText()); // <-- ELIMINAR/IGNORAR LINEA ORIGINAL
+               overlayInstructionsPart1.setText(FULL_INSTRUCTIONS_TEXT); 
             } else {
                System.err.println("EcgMonitorController: ADVERTENCIA: overlayInstructionsPart1 es null. No se puede setear el texto de instrucciones.");
             }
-            // --- Fin actualizar texto de instrucciones ---
+
 
 
             electrodesDisconnectedOverlay.setVisible(true); // Hacer visible el nodo
             electrodesDisconnectedOverlay.setManaged(true); // Asegurar que ocupa espacio en el layout
 
-            // Animar la opacidad del overlay desde su valor actual hasta 1.0 (completamente opaco)
+     
             FadeTransition fadeIn = new FadeTransition(Duration.millis(100), electrodesDisconnectedOverlay); // Duracion ajustada a 500ms como en discusion anterior
             fadeIn.setFromValue(electrodesDisconnectedOverlay.getOpacity());
             fadeIn.setToValue(1.0);
@@ -454,17 +409,17 @@ public class EcgMonitorController implements Initializable, SerialDataListener, 
      * (Mantener este método como está)
      */
     private void hideStatusOverlay() {
-         // Solo intentar ocultar si el overlay existe y esta visible (para evitar animar algo ya invisible)
+
          if (electrodesDisconnectedOverlay != null && electrodesDisconnectedOverlay.isVisible()) {
 
-             // Crear y reproducir la animacion de desaparicion (fade-out)
-             FadeTransition fadeOut = new FadeTransition(Duration.millis(500), electrodesDisconnectedOverlay); // 500ms de duracion
-             fadeOut.setFromValue(electrodesDisconnectedOverlay.getOpacity()); // Empezar desde la opacidad actual
-             fadeOut.setToValue(0.0); // Terminar en opacidad 0.0 (transparente)
 
-             // Al finalizar la animacion de desvanecimiento...
+             FadeTransition fadeOut = new FadeTransition(Duration.millis(500), electrodesDisconnectedOverlay); 
+             fadeOut.setFromValue(electrodesDisconnectedOverlay.getOpacity()); 
+             fadeOut.setToValue(0.0); 
+
+
              fadeOut.setOnFinished(event -> {
-                 // ...ocultar completamente el nodo para que no bloquee eventos o espacio en el layout.
+
                  electrodesDisconnectedOverlay.setVisible(false);
                  electrodesDisconnectedOverlay.setManaged(false);
                  System.out.println("EcgMonitorController: Overlay de estado ocultado y gestionado.");
