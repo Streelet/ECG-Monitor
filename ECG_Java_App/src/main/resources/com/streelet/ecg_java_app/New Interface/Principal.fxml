@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Circle?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="758.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="Untitled Tab 1">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="424.0" prefWidth="611.0" />
+            </content>
+          </Tab>
+          <Tab text="Untitled Tab 2">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+   <left>
+      <GridPane prefHeight="453.0" prefWidth="139.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="146.0" minHeight="0.0" prefHeight="27.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="146.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="363.0" minHeight="0.0" prefHeight="37.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="38.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="375.0" minHeight="10.0" prefHeight="318.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <center>
+                  <Label text="Visualizador ECG" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+               <center>
+                  <Label text="Area de Trabajo" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+               <center>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <center>
+                        <Label text="ECG" BorderPane.alignment="CENTER" />
+                     </center>
+                     <left>
+                        <BorderPane prefHeight="31.0" prefWidth="67.0" BorderPane.alignment="CENTER">
+                           <left>
+                              <Pane prefHeight="31.0" prefWidth="28.0" BorderPane.alignment="CENTER" />
+                           </left>
+                           <center>
+                              <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <center>
+                                    <Circle fill="DODGERBLUE" radius="11.0" stroke="BLACK" strokeType="INSIDE" BorderPane.alignment="CENTER" />
+                                 </center>
+                              </BorderPane>
+                           </center>
+                        </BorderPane>
+                     </left>
+                  </BorderPane>
+               </center>
+            </BorderPane>
+         </children>
+      </GridPane>
+   </left>
+   <top>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+   </top>
+</BorderPane>

@@ -413,7 +413,7 @@ public class EcgMonitorController implements Initializable, SerialDataListener, 
          if (electrodesDisconnectedOverlay != null && electrodesDisconnectedOverlay.isVisible()) {
 
 
-             FadeTransition fadeOut = new FadeTransition(Duration.millis(500), electrodesDisconnectedOverlay); 
+             FadeTransition fadeOut = new FadeTransition(Duration.millis(100), electrodesDisconnectedOverlay); 
              fadeOut.setFromValue(electrodesDisconnectedOverlay.getOpacity()); 
              fadeOut.setToValue(0.0); 
 
