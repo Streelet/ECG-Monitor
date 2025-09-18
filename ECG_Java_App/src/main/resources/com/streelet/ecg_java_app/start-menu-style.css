@@ -1,0 +1,227 @@
+/* --- Global Styles --- */
+.root {
+    -fx-background-color: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #1A1A2E 100%); 
+    -fx-font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+/* --- Typography --- */
+.label {
+    -fx-text-fill: #EAEAEA;
+    -fx-font-size: 14px;
+}
+
+.title-label {
+    -fx-text-fill: #C7C7FF; 
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(199, 199, 255, 0.3), 10, 0, 0, 2);
+}
+
+.section-label {
+    -fx-text-fill: #EAEAEA;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 5 0;
+}
+
+/* --- Enhanced Buttons --- */
+.button {
+    -fx-background-color: linear-gradient(to bottom, #5A5A89, #4A4A79);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 12;
+    -fx-padding: 12px 20px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 3);
+    -fx-border-color: rgba(199, 199, 255, 0.2);
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #7878B4, #6868A4);
+    -fx-effect: dropshadow(gaussian, rgba(199, 199, 255, 0.4), 12, 0, 0, 4);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+.button:pressed {
+    -fx-background-color: linear-gradient(to bottom, #4A4A79, #3A3A69);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 4, 0, 0, 1);
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+.button.exit-button {
+    -fx-background-color: linear-gradient(to bottom, #5A4A4A, #4A3A3A);
+    -fx-border-color: rgba(255, 199, 199, 0.2);
+}
+
+.button.exit-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #7A6A6A, #6A5A5A);
+    -fx-effect: dropshadow(gaussian, rgba(255, 199, 199, 0.3), 12, 0, 0, 4);
+}
+
+/* --- Enhanced Input Controls --- */
+.text-field, .text-area, .combo-box, .choice-box, .date-picker {
+    -fx-background-color: rgba(46, 46, 62, 0.8);
+    -fx-text-fill: #EAEAEA;
+    -fx-font-size: 14px;
+    -fx-border-color: rgba(90, 90, 137, 0.5);
+    -fx-border-width: 2px;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-prompt-text-fill: #8A8A9E;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2);
+    -fx-padding: 8px 12px;
+}
+
+.text-field:focused, .text-area:focused, .combo-box:focused, .choice-box:focused, .date-picker:focused {
+    -fx-border-color: #C7C7FF;
+    -fx-effect: dropshadow(gaussian, #C7C7FF, 8, 0.2, 0, 0);
+    -fx-background-color: rgba(46, 46, 62, 0.95);
+}
+
+.text-area {
+    -fx-padding: 12px;
+}
+
+.text-area .content {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* --- ComboBox / ChoiceBox Enhanced Styling --- */
+.combo-box-popup .list-view, .choice-box .context-menu {
+    -fx-background-color: rgba(46, 46, 62, 0.95);
+    -fx-border-color: #5A5A89;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 12, 0, 0, 4);
+}
+
+.combo-box-popup .list-cell, .choice-box .menu-item {
+    -fx-text-fill: #EAEAEA;
+    -fx-background-color: transparent;
+    -fx-padding: 10px 12px;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+.combo-box-popup .list-cell:hover, .choice-box .menu-item:focused {
+    -fx-background-color: rgba(90, 90, 137, 0.6);
+    -fx-text-fill: white;
+}
+
+.combo-box-popup .list-cell:filled:selected, .combo-box-popup .list-cell:filled:selected:hover {
+    -fx-background-color: #C7C7FF;
+    -fx-text-fill: #1A1A2E;
+}
+
+.combo-box .arrow, .choice-box .arrow, .date-picker .arrow-button .arrow {
+    -fx-background-color: #C7C7FF;
+    -fx-shape: "M0,0H10L5,6z";
+}
+
+.combo-box .arrow-button, .choice-box .arrow-button, .date-picker .arrow-button {
+    -fx-background-color: transparent;
+}
+
+/* --- DatePicker Enhanced Styling --- */
+.date-picker-popup {
+    -fx-background-color: rgba(46, 46, 62, 0.95);
+    -fx-border-color: #5A5A89;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 12, 0, 0, 4);
+}
+
+.date-picker-popup .month-year-pane {
+    -fx-background-color: rgba(62, 62, 78, 0.8);
+    -fx-background-radius: 6 6 0 0;
+}
+
+.date-picker-popup .month-year-pane .label {
+    -fx-text-fill: #C7C7FF;
+    -fx-font-weight: bold;
+}
+
+.date-picker-popup .spinner .button .left-arrow,
+.date-picker-popup .spinner .button .right-arrow {
+    -fx-background-color: #C7C7FF;
+}
+
+.date-picker-popup .day-name-cell, .date-picker-popup .week-number-cell {
+    -fx-text-fill: #8A8A9E;
+    -fx-font-weight: bold;
+}
+
+.date-picker-popup .day-cell {
+    -fx-text-fill: #EAEAEA;
+    -fx-background-radius: 4;
+}
+
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: rgba(90, 90, 137, 0.6);
+    -fx-background-radius: 4;
+}
+
+.date-picker-popup .day-cell.today {
+    -fx-border-color: #C7C7FF;
+    -fx-border-width: 2;
+    -fx-border-radius: 4;
+}
+
+.date-picker-popup .day-cell:selected {
+    -fx-background-color: #C7C7FF;
+    -fx-text-fill: #1A1A2E;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4;
+}
+
+/* --- Enhanced Clock Styling --- */
+#clockLabel {
+    -fx-font-family: "Segoe UI Semibold", system-ui, sans-serif;
+    -fx-text-fill: white;
+    -fx-font-size: 64px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.3), 15, 0, 0, 0);
+}
+
+#amPmLabel {
+    -fx-font-family: "Segoe UI Light", system-ui, sans-serif;
+    -fx-text-fill: #C7C7FF;
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(199, 199, 255, 0.2), 8, 0, 0, 0);
+}
+
+/* --- Form Layout Enhancements --- */
+.anchor-pane {
+    -fx-padding: 20px;
+}
+
+.vbox {
+    -fx-spacing: 15px;
+}
+
+/* --- Input Field Validation States --- */
+.text-field.error, .text-area.error, .combo-box.error, .choice-box.error, .date-picker.error {
+    -fx-border-color: #FF6B6B;
+    -fx-effect: dropshadow(gaussian, rgba(255, 107, 107, 0.4), 8, 0, 0, 0);
+}
+
+.text-field.success, .text-area.success, .combo-box.success, .choice-box.success, .date-picker.success {
+    -fx-border-color: #51CF66;
+    -fx-effect: dropshadow(gaussian, rgba(81, 207, 102, 0.3), 8, 0, 0, 0);
+}

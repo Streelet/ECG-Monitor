@@ -60,16 +60,27 @@
                                     </font>
                                 </Label>
                             </top>
-                            <left>
-                                <Label fx:id="labelHeartRate" prefHeight="130.0" prefWidth="91.0" text="80" textFill="#292d96" BorderPane.alignment="CENTER">
+                            <center>
+                                <BorderPane BorderPane.alignment="CENTER">
+                                    <left>
+                                        <Label fx:id="labelHeartRate" prefHeight="130.0" prefWidth="120.0" text="80" textFill="#292d96" BorderPane.alignment="CENTER">
+                                            <font>
+                                                <Font size="52.0" />
+                                            </font>
+                                        </Label>
+                                    </left>
+                                    <center>
+                                        <Circle fx:id="beatCircle" fill="LIME" radius="12.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="beatCircle" BorderPane.alignment="CENTER" />
+                                    </center>
+                                </BorderPane>
+                            </center>
+                            <bottom>
+                                <Label fx:id="bpmStatusLabel" text="Normal" styleClass="bpm-normal" BorderPane.alignment="CENTER">
                                     <font>
-                                        <Font size="52.0" />
+                                        <Font size="14.0" />
                                     </font>
                                 </Label>
-                            </left>
-                            <center>
-                                <Circle fx:id="beatCircle" fill="LIME" radius="11.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="beatCircle" BorderPane.alignment="CENTER" />
-                            </center>
+                            </bottom>
                         </BorderPane>
                     </top>
                     <center>

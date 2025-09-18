@@ -89,22 +89,43 @@ public class EcgDataModel {
              //Solo asegurar que es positivo
              if(intervalSamples >0){
                  double instantaneousBpm = bpmCalculusSamplingRate * 60 / intervalSamples;
-                 bpmHistory.add((int) Math.round(instantaneousBpm));
-                 System.out.println("BPM ACTUAL " + instantaneousBpm);
-                 System.out.println("BPM " + currentBpm);
                  
-                 /*Mantener la lista en el numero de datos especificado por
-                 @numberOfBeatsToAverage
-                 */
-                 while (bpmHistory.size() > numberOfBeatsToAverage){
-                     bpmHistory.remove(0);
+                 // Filter out unrealistic BPM values (20-220 BPM range)
+                 if (instantaneousBpm >= 20 && instantaneousBpm <= 220) {
+                     bpmHistory.add((int) Math.round(instantaneousBpm));
+                     System.out.println("BPM ACTUAL " + instantaneousBpm);
+                     
+                     // Mantener la lista en el numero de datos especificado por numberOfBeatsToAverage
+                     while (bpmHistory.size() > numberOfBeatsToAverage){
+                         bpmHistory.remove(0);
+                     }
+                     
+                     // Use weighted average for smoother BPM calculation
+                     if (bpmHistory.size() >= 3) {
+                         double weightedSum = 0;
+                         double totalWeight = 0;
+                         
+                         for (int i = 0; i < bpmHistory.size(); i++) {
+                             // More recent values get higher weight
+                             double weight = i + 1;
+                             weightedSum += bpmHistory.get(i) * weight;
+                             totalWeight += weight;
+                         }
+                         
+                         currentBpm = (int) Math.round(weightedSum / totalWeight);
+                     } else {
+                         // For first few readings, use simple average
+                         double sumBpm = 0;
+                         for(int bpm : bpmHistory){
+                             sumBpm += bpm;
+                         }
+                         currentBpm = (int) Math.round(sumBpm / bpmHistory.size()); 
+                     }
+                     
+                     System.out.println("BPM SMOOTHED " + currentBpm);
+                 } else {
+                     System.out.println("BPM OUT OF RANGE: " + instantaneousBpm + " - ignoring");
                  }
-                 
-                 double sumBpm = 0;
-                 for(int bpm : bpmHistory){
-                 sumBpm += bpm;
-             }
-                currentBpm = (int) Math.round(sumBpm / bpmHistory.size()); 
                  
              } //Fin del If de Lectura de Pico R
              else {

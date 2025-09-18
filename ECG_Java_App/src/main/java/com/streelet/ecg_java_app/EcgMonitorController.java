@@ -13,6 +13,7 @@ import com.streelet.ecg_java_app.serial.SerialDataManager;
 import com.streelet.ecg_java_app.model.EcgDataModel;
 import com.streelet.ecg_java_app.model.EcgPeakListener;
 import javafx.animation.FadeTransition;
+import javafx.animation.ScaleTransition;
 import javafx.scene.shape.Circle;
 import javafx.animation.PauseTransition;
 import javafx.scene.control.TextArea;
@@ -38,6 +39,9 @@ public class EcgMonitorController implements Initializable, SerialDataListener, 
 
     @FXML
     private Label labelHeartRate;
+
+    @FXML
+    private Label bpmStatusLabel;
 
     @FXML
     private Circle beatCircle;
@@ -320,9 +324,11 @@ private Label patientAllergiesLabel;
             if(labelHeartRate != null){
                  if(currentBpm > 0){
                      labelHeartRate.setText(currentBpm+"");
+                     updateBpmStatus(currentBpm);
                  }
                  else  {
                      labelHeartRate.setText("00");
+                     updateBpmStatus(0);
                  }
              }
 
@@ -340,19 +346,32 @@ private Label patientAllergiesLabel;
         // Este método se ejecuta en el HILO DE JavaFX
 
         if (beatCircle != null) {
-        // Hacer el círculo completamente visible instantáneamente
-        beatCircle.setOpacity(1.0);
-
-        // Crear una transición de pausa que dure 300ms
-        PauseTransition fadeOut = new PauseTransition(Duration.millis(300));
-
-        fadeOut.setOnFinished(event -> {
-            beatCircle.setOpacity(0.0);
-        });
-
-        // Iniciar la pausa y, por lo tanto, la animación 
-        fadeOut.play();
-    }
+            // Create a more realistic heartbeat animation with scaling and opacity
+            beatCircle.setOpacity(1.0);
+            beatCircle.setScaleX(1.0);
+            beatCircle.setScaleY(1.0);
+            
+            // Quick scale up animation (heartbeat pump)
+            ScaleTransition scaleUp = new ScaleTransition(Duration.millis(100), beatCircle);
+            scaleUp.setToX(1.3);
+            scaleUp.setToY(1.3);
+            
+            // Scale back down and fade out
+            ScaleTransition scaleDown = new ScaleTransition(Duration.millis(200), beatCircle);
+            scaleDown.setToX(1.0);
+            scaleDown.setToY(1.0);
+            
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(200), beatCircle);
+            fadeOut.setToValue(0.0);
+            
+            // Chain the animations
+            scaleUp.setOnFinished(e -> {
+                scaleDown.play();
+                fadeOut.play();
+            });
+            
+            scaleUp.play();
+        }
 
         // Acción a realizar cuando el Modelo detecta un pico 
         System.out.println("DEBUG ECG: Pico detectado por el Modelo en time=" + time + ", value=" + peakValue + ". Llamando a Beep.play().");
@@ -480,5 +499,42 @@ private Label patientAllergiesLabel;
         System.out.println("EcgMonitorController: Sistema Beep (AudioCue) apagado.");
 
         System.out.println("EcgMonitorController: Shutdown completo.");
+    }
+
+    /**
+     * Updates the BPM status label and styling based on heart rate value
+     * @param bpm The current BPM value
+     */
+    private void updateBpmStatus(int bpm) {
+        if (bpmStatusLabel != null && labelHeartRate != null) {
+            String status;
+            String styleClass;
+            
+            if (bpm == 0) {
+                status = "No Signal";
+                styleClass = "bpm-normal";
+            } else if (bpm < 60) {
+                status = "Bradicardia";
+                styleClass = "bpm-low";
+            } else if (bpm <= 100) {
+                status = "Normal";
+                styleClass = "bpm-normal";
+            } else if (bpm <= 120) {
+                status = "Elevado";
+                styleClass = "bpm-high";
+            } else {
+                status = "Taquicardia";
+                styleClass = "bpm-high";
+            }
+            
+            bpmStatusLabel.setText(status);
+            
+            // Update styling for both labels
+            labelHeartRate.getStyleClass().removeAll("bpm-normal", "bpm-low", "bpm-high");
+            labelHeartRate.getStyleClass().add(styleClass);
+            
+            bpmStatusLabel.getStyleClass().removeAll("bpm-normal", "bpm-low", "bpm-high");
+            bpmStatusLabel.getStyleClass().add(styleClass);
+        }
     }
 }
