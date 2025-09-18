@@ -1,49 +1,155 @@
+/* --- Global Styles --- */
 .root {
-    -fx-background-color: #1A1A2E; /* Fondo oscuro elegante */
+    -fx-background-color: #1A1A2E; /* Dark blue-purple background */
+    -fx-font-family: "Segoe UI", system-ui, sans-serif;
 }
 
+/* --- Typography --- */
 .label {
     -fx-text-fill: #EAEAEA;
-    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
 }
 
+.title-label {
+    -fx-text-fill: #C7C7FF; /* Light lavender for titles */
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.section-label {
+    -fx-text-fill: #EAEAEA;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* --- Buttons --- */
 .button {
-    -fx-background-color: linear-gradient(#F0F0F0, #C0C0C0);
-    -fx-text-fill: #1A1A2E;
+    -fx-background-color: #5A5A89; /* Purple accent color */
+    -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-font-size: 14px;
     -fx-background-radius: 8;
-    -fx-padding: 8px 16px;
+    -fx-padding: 10px 20px;
     -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);
 }
 
 .button:hover {
-    -fx-background-color: linear-gradient(#ffffff, #bdbdbd);
+    -fx-background-color: #7878B4; /* Lighter purple on hover */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 0, 3);
 }
 
+.button.exit-button {
+    -fx-background-color: #4A4A6A;
+}
+
+.button.exit-button:hover {
+    -fx-background-color: #6A6A9A;
+}
+
+
+/* --- Input Controls (TextField, TextArea, ComboBox, DatePicker) --- */
 .text-field, .text-area, .combo-box, .choice-box, .date-picker {
     -fx-background-color: #2E2E3E;
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: #EAEAEA;
+    -fx-font-size: 14px;
     -fx-border-color: #5A5A89;
-    -fx-border-radius: 4;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-prompt-text-fill: #8A8A9E;
+}
+
+.text-field:focused, .text-area:focused, .combo-box:focused, .choice-box:focused, .date-picker:focused {
+    -fx-border-color: #C7C7FF;
+    -fx-effect: dropshadow(gaussian, #C7C7FF, 5, 0.1, 0, 0);
 }
 
 .text-area .content {
     -fx-background-color: #2E2E3E;
 }
 
-.date-picker .text-field {
-    -fx-text-fill: #ffffff;
+/* --- ComboBox / ChoiceBox Popup Styling --- */
+.combo-box-popup .list-view, .choice-box .context-menu {
+    -fx-background-color: #2E2E3E;
+    -fx-border-color: #5A5A89;
+    -fx-border-width: 1;
 }
 
-#clockLabel {
+.combo-box-popup .list-cell, .choice-box .menu-item {
+    -fx-text-fill: #EAEAEA;
+    -fx-background-color: transparent;
+    -fx-padding: 8px 12px;
+}
+
+.combo-box-popup .list-cell:hover, .choice-box .menu-item:focused {
+    -fx-background-color: #5A5A89;
     -fx-text-fill: white;
-    -fx-font-size: 50px;
+}
+
+.combo-box-popup .list-cell:filled:selected, .combo-box-popup .list-cell:filled:selected:hover {
+    -fx-background-color: #C7C7FF;
+    -fx-text-fill: #1A1A2E;
+}
+
+.combo-box .arrow, .choice-box .arrow, .date-picker .arrow-button .arrow {
+    -fx-background-color: #C7C7FF;
+}
+
+/* --- DatePicker Popup Styling --- */
+.date-picker-popup {
+    -fx-background-color: #2E2E3E;
+    -fx-border-color: #5A5A89;
+    -fx-border-width: 1;
+}
+
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #3E3E4E;
+}
+
+.date-picker-popup .month-year-pane .label {
+    -fx-text-fill: #C7C7FF;
+}
+
+.date-picker-popup .spinner .button .left-arrow,
+.date-picker-popup .spinner .button .right-arrow {
+    -fx-background-color: #C7C7FF;
+}
+
+.date-picker-popup .day-name-cell, .date-picker-popup .week-number-cell {
+    -fx-text-fill: #8A8A9E;
+}
+
+.date-picker-popup .day-cell {
+    -fx-text-fill: #EAEAEA;
+}
+
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: #5A5A89;
+}
+
+.date-picker-popup .day-cell.today {
+    -fx-border-color: #C7C7FF;
+    -fx-border-width: 1;
+}
+
+.date-picker-popup .day-cell:selected {
+    -fx-background-color: #C7C7FF;
+    -fx-text-fill: #1A1A2E;
+}
+
+/* --- Clock Styling --- */
+#clockLabel {
+    -fx-font-family: "Segoe UI Semibold", system-ui, sans-serif;
+    -fx-text-fill: white;
+    -fx-font-size: 64px;
     -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.2), 10, 0, 0, 0);
 }
 
 #amPmLabel {
-    -fx-text-fill: white;
-    -fx-font-size: 24px;
+    -fx-font-family: "Segoe UI Light", system-ui, sans-serif;
+    -fx-text-fill: #C7C7FF;
+    -fx-font-size: 32px;
     -fx-font-weight: bold;
 }

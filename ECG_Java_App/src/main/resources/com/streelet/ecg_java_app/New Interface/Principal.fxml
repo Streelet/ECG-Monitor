@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Circle?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="758.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
@@ -35,11 +34,12 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="146.0" minHeight="0.0" prefHeight="27.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="146.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="363.0" minHeight="0.0" prefHeight="37.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="38.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="375.0" minHeight="10.0" prefHeight="318.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="146.0" minHeight="0.0" prefHeight="28.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="146.0" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="363.0" minHeight="0.0" prefHeight="34.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="188.0" minHeight="0.0" prefHeight="31.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="375.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="375.0" minHeight="10.0" prefHeight="309.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
@@ -56,17 +56,40 @@
                <center>
                   <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <center>
-                        <Label text="ECG" BorderPane.alignment="CENTER" />
+                        <Label text="    ECG VISUAL" BorderPane.alignment="CENTER_LEFT" />
                      </center>
                      <left>
-                        <BorderPane prefHeight="31.0" prefWidth="67.0" BorderPane.alignment="CENTER">
+                        <BorderPane prefHeight="31.0" prefWidth="35.0" BorderPane.alignment="CENTER">
                            <left>
-                              <Pane prefHeight="31.0" prefWidth="28.0" BorderPane.alignment="CENTER" />
+                              <Pane prefHeight="31.0" prefWidth="27.0" BorderPane.alignment="CENTER" />
                            </left>
                            <center>
-                              <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                              <BorderPane prefHeight="31.0" prefWidth="41.0" BorderPane.alignment="CENTER">
                                  <center>
-                                    <Circle fill="DODGERBLUE" radius="11.0" stroke="BLACK" strokeType="INSIDE" BorderPane.alignment="CENTER" />
+                                    <Circle fill="DODGERBLUE" radius="8.0" stroke="BLACK" strokeType="INSIDE" BorderPane.alignment="CENTER" />
+                                 </center>
+                              </BorderPane>
+                           </center>
+                        </BorderPane>
+                     </left>
+                  </BorderPane>
+               </center>
+            </BorderPane>
+            <BorderPane layoutX="10.0" layoutY="117.0" prefHeight="120.0" prefWidth="139.0" GridPane.rowIndex="4">
+               <center>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <center>
+                        <Label text="    MEDICA" BorderPane.alignment="CENTER_LEFT" />
+                     </center>
+                     <left>
+                        <BorderPane prefHeight="31.0" prefWidth="35.0" BorderPane.alignment="CENTER">
+                           <left>
+                              <Pane prefHeight="31.0" prefWidth="27.0" BorderPane.alignment="CENTER" />
+                           </left>
+                           <center>
+                              <BorderPane prefHeight="31.0" prefWidth="41.0" BorderPane.alignment="CENTER">
+                                 <center>
+                                    <Circle fill="#d30d0d" radius="8.0" stroke="BLACK" strokeType="INSIDE" BorderPane.alignment="CENTER" />
                                  </center>
                               </BorderPane>
                            </center>
@@ -79,7 +102,7 @@
       </GridPane>
    </left>
    <top>
-      <GridPane BorderPane.alignment="CENTER">
+      <GridPane prefHeight="27.0" prefWidth="758.0" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

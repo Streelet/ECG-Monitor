@@ -19,6 +19,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
+
 import com.streelet.ecg_java_app.StartController.PatientData; 
 
 
@@ -61,6 +62,15 @@ public class EcgMonitorController implements Initializable, SerialDataListener, 
    
     private PatientData patientData; 
     private String serialPortName; 
+    
+    
+ @FXML
+private Label patientNameLabel;
+@FXML
+private Label patientHistoryLabel;
+@FXML
+private Label patientAllergiesLabel;
+    
     // --- Fin Campos recibidos ---
 
 
@@ -161,28 +171,50 @@ public class EcgMonitorController implements Initializable, SerialDataListener, 
     }
 
 
-    // Este metodo es llamado por App.java despues de initialize()
-    // Asegurate de importar com.streelet.ecg_java_app.StartController.PatientData;
     public void setPatientDataAndPort(PatientData patientData, String portName) {
         System.out.println("EcgMonitorController: Datos de paciente y puerto recibidos.");
         this.patientData = patientData;
         this.serialPortName = portName;
 
-        // Mostrar el resumen del paciente en el TextArea (si el campo @FXML no es null)
-        if (patientSummaryTextArea != null && this.patientData != null) {
-            patientSummaryTextArea.setText(this.patientData.getSummary());
-             // Opcional: Puedes hacer que este TextArea no sea editable y no tenga scrollbars via CSS o FXML
-             // Ya agregamos reglas CSS para esto anteriormente
-             patientSummaryTextArea.setEditable(false); // Hacerlo no editable
-             patientSummaryTextArea.setFocusTraversable(false); // No se puede seleccionar con tab
+        // --- CORRECCIÓN AQUÍ: Usando solo getName() y getSummary() ---
+        if (this.patientData != null) {
+            // Set Name directly (assuming getName() exists)
+            if (patientNameLabel != null) {
+                patientNameLabel.setText(patientData.getName());
+            }
+
+            // Parse the summary string for History and Allergies
+            String rawSummary = patientData.getSummary();
+            // Split the summary by double newlines to get individual blocks of information
+            String[] parts = rawSummary.split("\\n\\n");
+
+            // Assuming the structure is:
+            // parts[0] is the Name (already handled by getName() but might be in summary too)
+            // parts[1] is "Sin antecedentes de citas previas." (History)
+            // parts[2] is "Alérgico a la Penicilina." (Allergies)
+
+            String historyText = "N/A"; // Default if not found
+            String allergiesText = "N/A"; // Default if not found
+
+            if (parts.length > 1 && parts[1] != null && !parts[1].trim().isEmpty()) {
+                historyText = parts[1].trim().replace(".", ""); // Clean up if needed
+            }
+            if (parts.length > 2 && parts[2] != null && !parts[2].trim().isEmpty()) {
+                allergiesText = parts[2].trim().replace(".", ""); // Clean up if needed
+            }
+
+            if (patientHistoryLabel != null) {
+                patientHistoryLabel.setText(historyText);
+            }
+            if (patientAllergiesLabel != null) {
+                patientAllergiesLabel.setText(allergiesText);
+            }
+
         } else {
-             System.err.println("EcgMonitorController: ERROR: patientSummaryTextArea es null o patientData es null al intentar mostrar resumen.");
+            System.err.println("EcgMonitorController: ERROR: patientData es null al intentar mostrar resumen.");
         }
-
-
+        // --- FIN DE MODIFICACIÓN CORREGIDA ---
     }
-    // --- Fin Metodo publico para recibir datos ---
-
 
 
     // Este metodo es llamado por App.java DESPUES de setPatientDataAndPort()

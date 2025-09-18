@@ -1,244 +1,239 @@
-/* ecg-style.css */
-
-/* 1. Estilo para el contenedor principal (BorderPane) y otros paneles */
-/* Establece el fondo oscuro para toda la aplicación */
 .root {
-    -fx-background-color: #1a1a1a; /* Fondo muy oscuro o casi negro */
+    -fx-background-color: #1a1a1a;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
 }
 
-.border-pane, .pane, .grid-pane {
-     -fx-background-color: #1a1a1a; /* Asegura que los subcontenedores también tengan fondo oscuro */
+.border-pane, .pane, .grid-pane, .vbox, .hbox, .stack-pane {
+    -fx-background-color: transparent;
 }
 
-
-/* 2. Estilos para el LineChart (fx:id="ecgChart") */
-/* Estos selectores aplican a cualquier Chart, incluyendo el tuyo */
-.chart {
-    -fx-padding: 10px; /* Espacio alrededor del chart */
-    /* El background-color ya está en .root/.border-pane, pero podemos reforzarlo aquí si es necesario */
-     -fx-background-color: #1a1a1a;
+.label {
+    -fx-text-fill: #e0e0e0;
 }
 
-/* Estilo del área donde se dibuja la gráfica */
-.chart-content {
-    -fx-background-color: #1a1a1a; /* Asegura que el fondo del área de trazado también sea oscuro */
+#labelHeartRate {
+    -fx-text-fill: #D8CBFA;
 }
 
-/* Estilo del fondo del área de trazado (generalmente se usa junto con chart-content) */
-.chart-plot-background {
-     -fx-background-color: #1a1a1a; /* Fondo oscuro del área de trazado */
-}
-
-/* Estilo para las líneas de la cuadrícula horizontal */
-.chart-horizontal-grid-lines {
-    -fx-stroke: #444444; /* Un gris oscuro sutil para las líneas de la cuadrícula */
-    -fx-stroke-width: 0.5px; /* Líneas finas */
-    /* Opcional: hacer las líneas punteadas */
-    /* -fx-stroke-dash-array: 2 5; */
-}
-
-/* Estilo para las líneas de la cuadrícula vertical */
-.chart-vertical-grid-lines {
-    -fx-stroke: #444444; /* Un gris oscuro sutil para las líneas de la cuadrícula */
-    -fx-stroke-width: 0.5px; /* Líneas finas */
-     /* Opcional: hacer las líneas punteadas */
-    /* -fx-stroke-dash-array: 2 5; */
-}
-
-/* Estilo para los ejes (líneas principales) */
-.axis {
-    -fx-stroke: #444444; /* Color del eje */
-    /* El color del texto de las etiquetas de los ticks (#tick-label-fill) se define a continuación en .axis-label o directamente */
-    -fx-tick-label-fill: #D8CBFA; /* Verde para las etiquetas de los ticks (los números si están visibles) */
-    -fx-tick-label-font-size: 0.9em; /* Tamaño de fuente para las etiquetas de tick */
-}
-
-/* Estilo para las marcas de "tick" en los ejes */
-.axis:axis-tick-mark {
-    -fx-stroke: #444444; /* Color de las marcas de tick */
-}
-
-
-/* Estilo para las etiquetas principales de los ejes (ej: "Tiempo", "Actividad Eléctrica (mV)") */
-.axis-label {
-    -fx-text-fill: #D8CBFA; /* Color del texto de la etiqueta (verde) */
-    -fx-font-size: 1em; /* Tamaño de fuente para la etiqueta */
+.label.title {
+    -fx-text-fill: #D8CBFA;
+    -fx-font-size: 25px;
     -fx-font-weight: bold;
 }
 
+.chart {
+    -fx-padding: 10px;
+    -fx-background-color: #1a1a1a;
+}
 
-/* Estilo para la línea de la serie de datos (la línea del ECG) */
+.chart-content {
+    -fx-padding: 15px;
+    -fx-background-color: #1a1a1a;
+}
+
+.chart-plot-background {
+    -fx-background-color: #252525;
+    -fx-background-radius: 5;
+}
+
+.chart-vertical-grid-lines, .chart-horizontal-grid-lines {
+    -fx-stroke: #3a3a3a;
+    -fx-stroke-width: 0.8px;
+    -fx-stroke-dash-array: 2 8;
+}
+
+.axis {
+    -fx-stroke: #444444;
+    -fx-tick-label-fill: #b0b0b0;
+    -fx-tick-label-font-size: 0.9em;
+}
+
+.axis-label {
+    -fx-text-fill: #D8CBFA;
+    -fx-font-size: 1.1em;
+    -fx-font-weight: bold;
+}
+
 .chart-series-line {
-    -fx-stroke: #D8CBFA; /* Verde brillante */
-    -fx-stroke-width: 2px; /* Ancho de la línea */
+    -fx-stroke: #D8CBFA;
+    -fx-stroke-width: 2.5px;
+    -fx-effect: dropshadow(gaussian, #D8CBFA, 12, 0.2, 0, 0);
 }
 
-/* Opcional: Ocultar los puntos individuales de la serie si no los quieres */
-.chart-series-node {
-    -fx-background-color: transparent; /* Hace que el nodo del punto sea transparente */
-    -fx-background-radius: 0; /* Asegura que no haya radio aunque el fondo fuera visible */
-    -fx-padding: 0; /* Elimina cualquier padding alrededor del punto */
+.default-color0.chart-line-symbol {
+    -fx-background-color: #D8CBFA, #1a1a1a;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
 }
-
-/* --- Estilos para la Leyenda --- */
 
 .chart-legend {
-    -fx-background-color: #1a1a1a; /* Fondo oscuro para la caja de la leyenda */
-    -fx-text-fill: #D8CBFA; /* Color del texto principal (puede ser sobrescrito) */
-    -fx-border-color: #444444; /* Borde sutil */
-    -fx-border-width: 1px;
-    -fx-padding: 5px; /* Espacio interno */
-}
-
-/* Estilo para cada item individual dentro de la leyenda (el nombre de la serie, ej "ECG Data") */
-.chart-legend-item {
-     -fx-text-fill: #D8CBFA; /* Asegura que el texto del nombre de la serie sea verde */
-}
-
-
-
-
-/* --- 3. Estilos Adicionales para tu FXML (Títulos, Etiquetas) --- */
-
-/* Estilo para el Label del título "ECG MONITOR" y potencialmente otros Labels genéricos */
-.label {
-    -fx-text-fill: #D8CBFA; /* Color del texto verde para los labels */
-     /* La fuente y tamaño ya están en FXML, lo cual es una buena práctica. */
-     /* Puedes sobrescribirlos aquí si lo deseas: */
-     /* -fx-font-size: 25px; */
-     /* -fx-font-weight: bold; */
-}
-
-
-/* Estilo específico para la etiqueta de frecuencia cardíaca por su ID */
-#labelHeartRate {
-    -fx-text-fill: #D8CBFA; /* Cambia el color del texto a verde */
-    /* La fuente Digital-7 y tamaño están en FXML y se mantendrán */
-}
-
-/* Estilo para el Label del corazón emoji (basado en su ubicación en el FXML) */
-/* Este selector es específico para el Label dentro del GridPane anidado en el BorderPane derecho */
-.grid-pane > .border-pane > .grid-pane > .label {
-     -fx-text-fill: #D8CBFA; /* Intenta poner el emoji verde */
-     -fx-font-size: 36px; /* Mantiene el tamaño definido en FXML */
-}
-
-
-/* Opcional: Estilo para los ejes para hacerlos "glow" un poco (requiere efectos) */
-/* .axis {
-     -fx-effect: dropshadow(gaussian, #D8CBFA, 5, 0, 0, 0);
-} */
-
-
-/*Opcional: Estilo para la línea del ECG para hacerla "glow"*/ 
-.chart-series-line {
-     -fx-effect: dropshadow(gaussian, #D8CBFA, 10, 0, 0, 0);
-} 
-
-
-
-
-
-/* --- Estilos para el Overlay de Estado --- */
-
-/* Estilo para el StackPane raiz del overlay (cubre toda la ventana) */
-.disconnected-overlay {
-    /* CAMBIADO: Fondo negro solido, igual que el del monitor */
-    -fx-background-color: #1a1a1a;
-    /* La opacidad animada (fade-in/out) se controla desde JavaFX */
-}
-
-/* Estilo para el panel interior (el VBox centrado). */
-/* Queremos que ocupe el ancho completo (controlado por FXML) y no tenga bordes ni fondo propio. */
-.overlay-panel {
-    /* CAMBIADO: Fondo transparente para el panel */
-    -fx-background-color: transparent;
-    /* CAMBIADO: Sin esquinas redondeadas */
-    -fx-background-radius: 0;
-    /* Mantenido: Espacio interno (ajusta si es necesario) */
-    -fx-padding: 40px;
-    /* CAMBIADO: Sin borde */
-    -fx-border-width: 0;
-    -fx-border-color: transparent; /* Asegurarse */
-    /* Mantenido: Centra el contenido DENTRO del VBox */
-    -fx-alignment: center;
-    /* Mantenido: Espacio entre los elementos hijos del VBox (debe coincidir con FXML) */
-    -fx-spacing: 25px;
-    /* CAMBIADO: Eliminar sombra si ya no hay borde/fondo en el panel */
-    -fx-effect: none;
-
-    /* NOTA: Para que el VBox ocupe el ancho completo visualmente,
-             la transparencia y el padding grande ayudan. La realocacion de
-             espacio completo se logra quitando maxWidth del VBox en FXML y
-             confiando en el StackPane padre. */
-}
-
-/* Estilo para la etiqueta del título dentro del panel */
-.overlay-panel .overlay-title {
-    /* CAMBIADO: Color del texto verde, como el monitor */
+    -fx-background-color: #252525;
     -fx-text-fill: #D8CBFA;
-    /* Mantenido: Tamaño y peso de fuente (ajusta si cambiaste en FXML) */
+    -fx-border-color: #444444;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 8px;
+}
+
+.chart-legend-item {
+    -fx-text-fill: #e0e0e0;
+}
+
+.combo-box-base {
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, #2c2c2e;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-radius: 5, 5, 4, 3;
+    -fx-text-fill: #D8CBFA;
+    -fx-font-size: 14px;
+}
+
+.combo-box-base:hover {
+    -fx-color: -fx-hover-base;
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, #3c3c3e;
+}
+
+.combo-box-base .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.combo-box-base .arrow {
+    -fx-background-color: #D8CBFA;
+    -fx-shape: "M0,0H7L3.5,4z";
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #2c2c2e;
+    -fx-border-color: #444444;
+    -fx-border-width: 1;
+}
+
+.combo-box-popup .list-cell {
+    -fx-text-fill: #e0e0e0;
+    -fx-background-color: #2c2c2e;
+    -fx-padding: 8 12;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #5a4f6b;
+    -fx-text-fill: white;
+}
+
+.combo-box-popup .list-cell:filled:selected, .combo-box-popup .list-cell:filled:selected:hover {
+    -fx-background-color: #D8CBFA;
+    -fx-text-fill: #1a1a1a;
+}
+
+.date-picker .text-field {
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, #2c2c2e;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-radius: 5, 5, 4, 3;
+    -fx-text-fill: #D8CBFA;
+    -fx-font-size: 14px;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.date-picker .arrow-button .arrow {
+    -fx-background-color: #D8CBFA;
+}
+
+.date-picker-popup {
+    -fx-background-color: #2c2c2e;
+    -fx-border-color: #444444;
+    -fx-border-width: 1;
+}
+
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #353535;
+}
+
+.date-picker-popup .month-year-pane .label {
+    -fx-text-fill: #D8CBFA;
+    -fx-font-weight: bold;
+}
+
+.date-picker-popup .spinner .button .left-arrow,
+.date-picker-popup .spinner .button .right-arrow {
+    -fx-background-color: #D8CBFA;
+}
+
+.date-picker-popup .day-name-cell, .date-picker-popup .week-number-cell {
+    -fx-text-fill: #b0b0b0;
+    -fx-font-weight: bold;
+}
+
+.date-picker-popup .day-cell {
+    -fx-background-color: #2c2c2e;
+    -fx-text-fill: #e0e0e0;
+}
+
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: #5a4f6b;
+}
+
+.date-picker-popup .day-cell.today {
+    -fx-border-color: #D8CBFA;
+    -fx-border-width: 1;
+}
+
+.date-picker-popup .day-cell:selected {
+    -fx-background-color: #D8CBFA;
+    -fx-text-fill: #1a1a1a;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: #2c2c2e;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0.0em;
+}
+
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #555555;
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2.0em;
+}
+
+.disconnected-overlay {
+    -fx-background-color: rgba(26, 26, 26, 0.95);
+}
+
+.overlay-panel {
+    -fx-background-color: transparent;
+    -fx-alignment: center;
+    -fx-spacing: 25px;
+}
+
+.overlay-panel .overlay-title {
+    -fx-text-fill: #D8CBFA;
     -fx-font-size: 34px;
     -fx-font-weight: bold;
-    /* text-alignment="CENTER" en FXML deberia centrar el texto */
+    -fx-effect: dropshadow(gaussian, #D8CBFA, 15, 0.1, 0, 0);
 }
 
-/* Estilo para la UNICA Area de Texto de instrucciones */
 .overlay-message-area {
-    -fx-background-color: transparent; /* Fondo externo transparente */
-    -fx-control-inner-background: transparent; /* Fondo interno transparente */
-    /* CAMBIADO: Color del texto verde, como el monitor */
-    -fx-text-fill: #D8CBFA;
-    /* Mantenido: Tamaño de fuente (ajusta si cambiaste en FXML) */
-    -fx-font-size: 16px;
-    -fx-padding: 0; /* Elimina padding por defecto del TextArea */
-    -fx-highlight-fill: rgba(0, 255, 0, 0.3); /* Ejemplo: Resaltado verde semi-transparente */
-    -fx-highlight-text-fill: #FFFFFF; /* Texto blanco al seleccionar */
-    -fx-display-caret: false; /* Oculta el cursor parpadeante */
-    -fx-border-color: transparent; /* Sin borde */
-    -fx-box-border: transparent; /* Sin borde de caja */
-}
-
-/* Ocultar las barras de desplazamiento del TextArea */
-.overlay-message-area .scroll-pane {
-    -fx-padding: 0; /* Asegura que no haya padding empujando las barras */
-    -fx-hbar-policy: never; /* Oculta la barra horizontal */
-    -fx-vbar-policy: never; /* Oculta la barra vertical */
-}
-
-/* Asegurar que los elementos visuales de la barra de desplazamiento no se muestren */
-.overlay-message-area .scroll-pane .scroll-bar {
-    -fx-pref-width: 0;
-    -fx-pref-height: 0;
-    -fx-min-width: 0;
-    -fx-min-height: 0;
-    -fx-max-width: 0;
-    -fx-max-height: 0;
-    -fx-opacity: 0;
-    visibility: hidden;
-    display: none;
-}
-
-/* Mantiene la transparencia en las sub-areas del TextArea */
-.overlay-message-area .viewport {
     -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 16px;
+    -fx-highlight-fill: rgba(216, 203, 250, 0.3);
+    -fx-highlight-text-fill: #FFFFFF;
+    -fx-display-caret: false;
+    -fx-border-color: transparent;
+    -fx-box-border: transparent;
+}
+
+.overlay-message-area .scroll-pane {
+    -fx-background-color: transparent;
+    -fx-hbar-policy: never;
+    -fx-vbar-policy: never;
 }
 
 .overlay-message-area .content {
-     -fx-background-color: transparent;
-}
-
-/* Eliminar efectos de hover/focus en el TextArea */
-.overlay-message-area:hover {
     -fx-background-color: transparent;
-    -fx-control-inner-background: transparent;
-}
-
-.overlay-message-area:focused {
-    -fx-background-color: transparent;
-    -fx-control-inner-background: transparent;
-    -fx-border-color: transparent;
-    -fx-box-border: transparent;
-    -fx-faint-focus-color: transparent;
-    -fx-focus-color: transparent;
 }
