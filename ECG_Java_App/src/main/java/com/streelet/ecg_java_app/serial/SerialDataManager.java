@@ -355,7 +355,8 @@ public class SerialDataManager {
 
         }); // Fin de submit().
 
-        return false;
+        // El puerto se abrió y el hilo de lectura quedó en marcha: la conexión fue exitosa.
+        return true;
     } //Final del método
 
     
