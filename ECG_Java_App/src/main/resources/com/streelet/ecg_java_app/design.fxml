@@ -8,82 +8,114 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.Circle?>
 
-<VBox alignment="CENTER" prefHeight="566.0" prefWidth="823.0" stylesheets="@start-menu-style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.streelet.ecg_java_app.StartController">
-   <children>
-      <AnchorPane prefHeight="566.0" prefWidth="823.0" VBox.vgrow="ALWAYS">
-         <children>
-            <!-- Títulos de sección -->
-            <Label layoutX="51.0" layoutY="68.0" styleClass="title-label" text="Información General del Paciente">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Label>
-            <Label layoutX="58.0" layoutY="288.0" styleClass="section-label" text="Historial Médico">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="59.0" layoutY="459.0" styleClass="section-label" text="Configuración de Entrada">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
+<StackPane prefHeight="640.0" prefWidth="940.0" styleClass="app-bg" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.streelet.ecg_java_app.StartController">
+    <padding>
+        <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
+    </padding>
+    <children>
+        <VBox maxWidth="880.0" spacing="22.0" styleClass="card-panel">
+            <padding>
+                <Insets bottom="28.0" left="32.0" right="32.0" top="26.0" />
+            </padding>
+            <children>
+                <!-- Encabezado -->
+                <HBox alignment="CENTER_LEFT" spacing="14.0">
+                    <children>
+                        <Circle radius="6.0" styleClass="brand-dot" />
+                        <VBox spacing="1.0">
+                            <children>
+                                <Label styleClass="app-title" text="ECG Monitor" />
+                                <Label styleClass="app-subtitle" text="Configuración de la sesión de monitorización" />
+                            </children>
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <VBox alignment="CENTER_RIGHT" spacing="0.0">
+                            <children>
+                                <Label fx:id="clockLabel" styleClass="clock" text="10:52" />
+                                <Label fx:id="amPmLabel" styleClass="clock-ampm" text="AM" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
 
-            <!-- Formulario de Paciente -->
-            <TextField fx:id="patientNameTextBox" layoutX="51.0" layoutY="119.0" prefHeight="39.0" prefWidth="442.0" promptText="Ingrese el nombre del paciente" />
-            <Label layoutX="58.0" layoutY="175.0" text="Género:">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <ChoiceBox fx:id="genderComboBox" layoutX="320.0" layoutY="176.0" prefHeight="28.0" prefWidth="171.0" />
-            <Label layoutX="58.0" layoutY="223.0" text="Fecha de Nacimiento:">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <DatePicker fx:id="birthDatePicker" layoutX="320.0" layoutY="225.0" prefHeight="26.0" prefWidth="171.0" />
-            <TextArea fx:id="medicalHistoryArea" layoutX="52.0" layoutY="332.0" prefHeight="113.0" prefWidth="434.0" promptText="Puede escribir aquí datos relevantes para el monitoreo del paciente" wrapText="true" />
-            
-            <!-- Configuración de Entrada: modo de operación y puerto -->
-            <Label layoutX="59.0" layoutY="504.0" text="Modo:">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-            <ChoiceBox fx:id="modeChoiceBox" layoutX="120.0" layoutY="502.0" prefWidth="160.0" />
-            <Label layoutX="300.0" layoutY="504.0" text="Puerto Serial:">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-            <ComboBox fx:id="serialPortComboBox" layoutX="410.0" layoutY="502.0" prefWidth="140.0" promptText="Seleccione un puerto" />
+                <Region maxHeight="1.0" minHeight="1.0" prefHeight="1.0" styleClass="divider" />
 
-            <!-- Botones de Acción -->
-            <Button fx:id="startButton" layoutX="561.0" layoutY="120.0" prefHeight="37.0" prefWidth="238.0" text="Iniciar Monitor con Paciente">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="startWithoutDataButton" layoutX="560.0" layoutY="184.0" prefHeight="37.0" prefWidth="238.0" text="Iniciar Sin Datos de Paciente">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="exitButton" layoutX="560.0" layoutY="248.0" prefHeight="37.0" prefWidth="238.0" styleClass="exit-button" text="Salir">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Button>
+                <!-- Cuerpo en dos columnas -->
+                <HBox spacing="30.0" VBox.vgrow="ALWAYS">
+                    <children>
+                        <!-- Columna izquierda: paciente -->
+                        <VBox spacing="14.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label styleClass="section-label" text="INFORMACIÓN DEL PACIENTE" />
 
-            <!-- Reloj -->
-            <Label fx:id="clockLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="561.0" layoutY="344.0" prefHeight="82.0" prefWidth="238.0" text="10:52" textAlignment="CENTER" />
-            <Label fx:id="amPmLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="561.0" layoutY="415.0" prefHeight="48.0" prefWidth="238.0" text="AM" textAlignment="CENTER" />
-         </children>
-      </AnchorPane>
-   </children>
-</VBox>
+                                <VBox spacing="6.0">
+                                    <children>
+                                        <Label styleClass="field-label" text="Nombre del paciente" />
+                                        <TextField fx:id="patientNameTextBox" promptText="Ingrese el nombre del paciente" />
+                                    </children>
+                                </VBox>
+
+                                <HBox spacing="14.0">
+                                    <children>
+                                        <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <Label styleClass="field-label" text="Género" />
+                                                <ChoiceBox fx:id="genderComboBox" maxWidth="Infinity" />
+                                            </children>
+                                        </VBox>
+                                        <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <Label styleClass="field-label" text="Fecha de nacimiento" />
+                                                <DatePicker fx:id="birthDatePicker" maxWidth="Infinity" />
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+
+                                <VBox spacing="6.0" VBox.vgrow="ALWAYS">
+                                    <children>
+                                        <Label styleClass="field-label" text="Historial médico" />
+                                        <TextArea fx:id="medicalHistoryArea" prefHeight="120.0" promptText="Datos relevantes para el monitoreo del paciente" wrapText="true" VBox.vgrow="ALWAYS" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </VBox>
+
+                        <!-- Columna derecha: configuración y acciones -->
+                        <VBox minWidth="300.0" prefWidth="300.0" spacing="14.0">
+                            <children>
+                                <Label styleClass="section-label" text="CONFIGURACIÓN DE ENTRADA" />
+
+                                <VBox spacing="6.0">
+                                    <children>
+                                        <Label styleClass="field-label" text="Modo de operación" />
+                                        <ChoiceBox fx:id="modeChoiceBox" maxWidth="Infinity" />
+                                    </children>
+                                </VBox>
+
+                                <VBox spacing="6.0">
+                                    <children>
+                                        <Label styleClass="field-label" text="Puerto serial" />
+                                        <ComboBox fx:id="serialPortComboBox" maxWidth="Infinity" promptText="Seleccione un puerto" />
+                                    </children>
+                                </VBox>
+
+                                <Region VBox.vgrow="ALWAYS" />
+
+                                <Button fx:id="startButton" maxWidth="Infinity" styleClass="primary-button" text="Iniciar Monitor con Paciente" />
+                                <Button fx:id="startWithoutDataButton" maxWidth="Infinity" text="Iniciar Sin Datos de Paciente" />
+                                <Button fx:id="exitButton" maxWidth="Infinity" styleClass="exit-button" text="Salir" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</StackPane>
