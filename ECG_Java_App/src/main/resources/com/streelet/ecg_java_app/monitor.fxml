@@ -1,111 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.streelet.ecg_java_app.EcgMonitorController">
+<StackPane prefHeight="640.0" prefWidth="1020.0" styleClass="app-bg" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.streelet.ecg_java_app.EcgMonitorController">
     <children>
-        <BorderPane prefHeight="614.0" prefWidth="1020.0">
-            <center>
-                <LineChart fx:id="ecgChart" prefHeight="283.0" prefWidth="494.0" BorderPane.alignment="CENTER">
-                    <xAxis>
-                        <NumberAxis label="Onda PQRST" side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                        <NumberAxis label="Actividad Eléctrica (mV)" side="LEFT" />
-                    </yAxis>
-                </LineChart>
-            </center>
-            <left>
-                <Pane prefHeight="518.0" prefWidth="31.0" BorderPane.alignment="CENTER" />
-            </left>
-            <bottom>
-                <GridPane prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                </GridPane>
-            </bottom>
+        <BorderPane>
             <top>
-                <Label prefHeight="51.0" prefWidth="191.0" text="ECG MONITOR" BorderPane.alignment="CENTER" styleClass="main-title">
-                    <font>
-                        <Font name="System Bold" size="25.0" />
-                    </font>
-                </Label>
+                <HBox alignment="CENTER_LEFT" spacing="14.0" styleClass="app-header">
+                    <padding>
+                        <Insets bottom="6.0" left="28.0" right="28.0" top="22.0" />
+                    </padding>
+                    <children>
+                        <Circle radius="6.0" styleClass="brand-dot" />
+                        <VBox spacing="1.0">
+                            <children>
+                                <Label styleClass="app-title" text="ECG Monitor" />
+                                <Label styleClass="app-subtitle" text="Monitorización en tiempo real" />
+                            </children>
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label styleClass="status-pill" text="● EN VIVO" />
+                    </children>
+                </HBox>
             </top>
-            <right>
-                <BorderPane prefHeight="517.0" prefWidth="259.0" BorderPane.alignment="CENTER">
+            <center>
+                <VBox spacing="12.0" styleClass="card">
+                    <padding>
+                        <Insets bottom="18.0" left="20.0" right="20.0" top="16.0" />
+                    </padding>
                     <BorderPane.margin>
-                        <javafx.geometry.Insets right="20.0" /> </BorderPane.margin>
-                    <top>
-                        <BorderPane prefHeight="200.0" prefWidth="352.0" BorderPane.alignment="CENTER">
-                            <top>
-                                <Label text="BPM" BorderPane.alignment="CENTER" styleClass="header-label">
-                                    <font>
-                                        <Font name="System Bold" size="30.0" />
-                                    </font>
-                                </Label>
-                            </top>
-                            <left>
-                                <Label fx:id="labelHeartRate" prefHeight="130.0" prefWidth="91.0" text="80" textFill="#292d96" BorderPane.alignment="CENTER">
-                                    <font>
-                                        <Font size="52.0" />
-                                    </font>
-                                </Label>
-                            </left>
-                            <center>
-                                <Circle fx:id="beatCircle" fill="LIME" radius="11.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="beatCircle" BorderPane.alignment="CENTER" />
-                            </center>
-                        </BorderPane>
-                    </top>
-                    <center>
-                        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                            <center>
-                                <GridPane hgap="5" vgap="5" BorderPane.alignment="CENTER"> <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+                        <Insets bottom="22.0" left="28.0" right="14.0" top="14.0" />
+                    </BorderPane.margin>
+                    <children>
+                        <Label styleClass="card-title" text="Electrocardiograma" />
+                        <LineChart fx:id="ecgChart" VBox.vgrow="ALWAYS">
+                            <xAxis>
+                                <NumberAxis side="BOTTOM" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis side="LEFT" />
+                            </yAxis>
+                        </LineChart>
+                    </children>
+                </VBox>
+            </center>
+            <right>
+                <VBox prefWidth="290.0" spacing="16.0">
+                    <padding>
+                        <Insets bottom="22.0" left="14.0" right="28.0" top="14.0" />
+                    </padding>
+                    <children>
+                        <!-- Tarjeta de frecuencia cardiaca -->
+                        <VBox spacing="6.0" styleClass="card">
+                            <padding>
+                                <Insets bottom="18.0" left="20.0" right="20.0" top="16.0" />
+                            </padding>
+                            <children>
+                                <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                    <children>
+                                        <Label styleClass="card-title" text="Frecuencia cardíaca" />
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <Circle fx:id="beatCircle" radius="7.0" styleClass="beatCircle" />
+                                    </children>
+                                </HBox>
+                                <HBox alignment="BOTTOM_LEFT" spacing="6.0">
+                                    <children>
+                                        <Label fx:id="labelHeartRate" styleClass="bpm-value" text="80" />
+                                        <Label styleClass="bpm-unit" text="BPM">
+                                            <HBox.margin>
+                                                <Insets bottom="14.0" />
+                                            </HBox.margin>
+                                        </Label>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                        <!-- Tarjeta de datos del paciente -->
+                        <VBox spacing="12.0" styleClass="card" VBox.vgrow="ALWAYS">
+                            <padding>
+                                <Insets bottom="18.0" left="20.0" right="20.0" top="16.0" />
+                            </padding>
+                            <children>
+                                <Label styleClass="card-title" text="Datos del paciente" />
+                                <GridPane hgap="10.0" vgap="12.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="NEVER" minWidth="70.0" prefWidth="78.0" />
+                                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
                                     </columnConstraints>
                                     <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        </rowConstraints>
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
+                                    </rowConstraints>
                                     <children>
-                                        <Label text="Datos del Paciente" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="section-title">
-                                            <font>
-                                                <Font size="21.0" />
-                                            </font>
-                                        </Label>
-
-                                        <Label text="Nombre:" styleClass="patient-label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                                        <Label fx:id="patientNameLabel" styleClass="patient-value" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                                        <Label text="Historial:" styleClass="patient-label" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                                        <Label fx:id="patientHistoryLabel" styleClass="patient-value" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                                        <Label text="Alergias:" styleClass="patient-label" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                                        <Label fx:id="patientAllergiesLabel" styleClass="patient-value" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-
-                                        </children>
+                                        <Label styleClass="patient-label" text="Nombre" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                        <Label fx:id="patientNameLabel" styleClass="patient-value" text="—" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                        <Label styleClass="patient-label" text="Historial" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <Label fx:id="patientHistoryLabel" styleClass="patient-value" text="—" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Label styleClass="patient-label" text="Alergias" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                        <Label fx:id="patientAllergiesLabel" styleClass="patient-value" text="—" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    </children>
                                 </GridPane>
-                            </center>
-                        </BorderPane>
-                    </center>
-                </BorderPane>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
             </right>
         </BorderPane>
         <fx:include fx:id="electrodesDisconnectedOverlay" source="ElectrodesDisconnectedOverlay.fxml" />

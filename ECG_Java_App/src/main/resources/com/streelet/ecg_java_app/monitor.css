@@ -1,239 +1,200 @@
+/* =========================================================
+   ECG Monitor — tema claro (inspirado en dashboards limpios)
+   Paleta: fondo gris claro, tarjetas blancas, acento azul,
+   trazo ECG en rojo médico.
+   ========================================================= */
+
 .root {
-    -fx-background-color: #1a1a1a;
-    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -app-bg: #EDEFF2;
+    -card-bg: white;
+    -card-border: #E5E7EB;
+    -text-strong: #111827;
+    -text-muted: #6B7280;
+    -text-faint: #9CA3AF;
+    -accent: #2563EB;
+    -ecg: #E5484D;
+    -success: #16A34A;
+    -fx-font-family: "Segoe UI", "Inter", system-ui, sans-serif;
 }
 
-.border-pane, .pane, .grid-pane, .vbox, .hbox, .stack-pane {
+.app-bg {
+    -fx-background-color: -app-bg;
+}
+
+/* ---------- Encabezado ---------- */
+.app-header {
     -fx-background-color: transparent;
 }
 
-.label {
-    -fx-text-fill: #e0e0e0;
+.brand-dot {
+    -fx-fill: -ecg;
 }
 
-#labelHeartRate {
-    -fx-text-fill: #D8CBFA;
-}
-
-.label.title {
-    -fx-text-fill: #D8CBFA;
-    -fx-font-size: 25px;
+.app-title {
+    -fx-text-fill: -text-strong;
+    -fx-font-size: 20px;
     -fx-font-weight: bold;
 }
 
+.app-subtitle {
+    -fx-text-fill: -text-muted;
+    -fx-font-size: 12.5px;
+}
+
+.status-pill {
+    -fx-text-fill: -success;
+    -fx-background-color: #E7F7EE;
+    -fx-background-radius: 20;
+    -fx-padding: 5 12 5 12;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+/* ---------- Tarjetas ---------- */
+.card {
+    -fx-background-color: -card-bg;
+    -fx-background-radius: 16;
+    -fx-border-color: -card-border;
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(17,24,39,0.06), 14, 0, 0, 4);
+}
+
+.card-title {
+    -fx-text-fill: -text-strong;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* ---------- Frecuencia cardiaca ---------- */
+.bpm-value {
+    -fx-text-fill: -ecg;
+    -fx-font-size: 56px;
+    -fx-font-weight: bold;
+}
+
+.bpm-unit {
+    -fx-text-fill: -text-faint;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.beatCircle {
+    -fx-fill: -ecg;
+}
+
+/* ---------- Datos del paciente ---------- */
+.patient-label {
+    -fx-text-fill: -text-muted;
+    -fx-font-size: 13px;
+}
+
+.patient-value {
+    -fx-text-fill: -text-strong;
+    -fx-font-size: 13.5px;
+    -fx-font-weight: bold;
+}
+
+/* ---------- Gráfica ECG ---------- */
 .chart {
-    -fx-padding: 10px;
-    -fx-background-color: #1a1a1a;
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
 }
 
 .chart-content {
-    -fx-padding: 15px;
-    -fx-background-color: #1a1a1a;
+    -fx-padding: 6px;
 }
 
 .chart-plot-background {
-    -fx-background-color: #252525;
-    -fx-background-radius: 5;
+    -fx-background-color: #FCFCFD;
+    -fx-background-radius: 10;
 }
 
-.chart-vertical-grid-lines, .chart-horizontal-grid-lines {
-    -fx-stroke: #3a3a3a;
-    -fx-stroke-width: 0.8px;
-    -fx-stroke-dash-array: 2 8;
+.chart-vertical-grid-lines,
+.chart-horizontal-grid-lines {
+    -fx-stroke: #EEF0F3;
+    -fx-stroke-width: 1px;
+}
+
+.chart-alternative-row-fill,
+.chart-alternative-column-fill {
+    -fx-fill: transparent;
+    -fx-stroke: transparent;
 }
 
 .axis {
-    -fx-stroke: #444444;
-    -fx-tick-label-fill: #b0b0b0;
-    -fx-tick-label-font-size: 0.9em;
+    -fx-tick-label-fill: -text-faint;
+    -fx-tick-label-font-size: 10px;
+    -fx-minor-tick-visible: false;
 }
 
 .axis-label {
-    -fx-text-fill: #D8CBFA;
-    -fx-font-size: 1.1em;
-    -fx-font-weight: bold;
+    -fx-text-fill: -text-muted;
 }
 
 .chart-series-line {
-    -fx-stroke: #D8CBFA;
-    -fx-stroke-width: 2.5px;
-    -fx-effect: dropshadow(gaussian, #D8CBFA, 12, 0.2, 0, 0);
-}
-
-.default-color0.chart-line-symbol {
-    -fx-background-color: #D8CBFA, #1a1a1a;
-    -fx-background-insets: 0, 2;
-    -fx-background-radius: 5px;
-    -fx-padding: 5px;
+    -fx-stroke: -ecg;
+    -fx-stroke-width: 2px;
 }
 
 .chart-legend {
-    -fx-background-color: #252525;
-    -fx-text-fill: #D8CBFA;
-    -fx-border-color: #444444;
-    -fx-border-width: 1px;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
-    -fx-padding: 8px;
-}
-
-.chart-legend-item {
-    -fx-text-fill: #e0e0e0;
-}
-
-.combo-box-base {
-    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, #2c2c2e;
-    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
-    -fx-background-radius: 5, 5, 4, 3;
-    -fx-text-fill: #D8CBFA;
-    -fx-font-size: 14px;
-}
-
-.combo-box-base:hover {
-    -fx-color: -fx-hover-base;
-    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, #3c3c3e;
-}
-
-.combo-box-base .arrow-button {
     -fx-background-color: transparent;
 }
 
-.combo-box-base .arrow {
-    -fx-background-color: #D8CBFA;
-    -fx-shape: "M0,0H7L3.5,4z";
-}
-
-.combo-box-popup .list-view {
-    -fx-background-color: #2c2c2e;
-    -fx-border-color: #444444;
-    -fx-border-width: 1;
-}
-
-.combo-box-popup .list-cell {
-    -fx-text-fill: #e0e0e0;
-    -fx-background-color: #2c2c2e;
-    -fx-padding: 8 12;
-}
-
-.combo-box-popup .list-cell:hover {
-    -fx-background-color: #5a4f6b;
-    -fx-text-fill: white;
-}
-
-.combo-box-popup .list-cell:filled:selected, .combo-box-popup .list-cell:filled:selected:hover {
-    -fx-background-color: #D8CBFA;
-    -fx-text-fill: #1a1a1a;
-}
-
-.date-picker .text-field {
-    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, #2c2c2e;
-    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
-    -fx-background-radius: 5, 5, 4, 3;
-    -fx-text-fill: #D8CBFA;
-    -fx-font-size: 14px;
-}
-
-.date-picker .arrow-button {
-    -fx-background-color: transparent;
-}
-
-.date-picker .arrow-button .arrow {
-    -fx-background-color: #D8CBFA;
-}
-
-.date-picker-popup {
-    -fx-background-color: #2c2c2e;
-    -fx-border-color: #444444;
-    -fx-border-width: 1;
-}
-
-.date-picker-popup .month-year-pane {
-    -fx-background-color: #353535;
-}
-
-.date-picker-popup .month-year-pane .label {
-    -fx-text-fill: #D8CBFA;
-    -fx-font-weight: bold;
-}
-
-.date-picker-popup .spinner .button .left-arrow,
-.date-picker-popup .spinner .button .right-arrow {
-    -fx-background-color: #D8CBFA;
-}
-
-.date-picker-popup .day-name-cell, .date-picker-popup .week-number-cell {
-    -fx-text-fill: #b0b0b0;
-    -fx-font-weight: bold;
-}
-
-.date-picker-popup .day-cell {
-    -fx-background-color: #2c2c2e;
-    -fx-text-fill: #e0e0e0;
-}
-
-.date-picker-popup .day-cell:hover {
-    -fx-background-color: #5a4f6b;
-}
-
-.date-picker-popup .day-cell.today {
-    -fx-border-color: #D8CBFA;
-    -fx-border-width: 1;
-}
-
-.date-picker-popup .day-cell:selected {
-    -fx-background-color: #D8CBFA;
-    -fx-text-fill: #1a1a1a;
-}
-
-.scroll-bar:horizontal .track,
-.scroll-bar:vertical .track{
-    -fx-background-color: #2c2c2e;
-    -fx-border-color: transparent;
-    -fx-background-radius: 0.0em;
-}
-
-.scroll-bar:vertical .thumb,
-.scroll-bar:horizontal .thumb {
-    -fx-background-color: #555555;
-    -fx-background-insets: 2, 0, 0;
-    -fx-background-radius: 2.0em;
-}
-
+/* ---------- Overlay de electrodos desconectados ---------- */
 .disconnected-overlay {
-    -fx-background-color: rgba(26, 26, 26, 0.95);
+    -fx-background-color: rgba(237,239,242,0.92);
 }
 
 .overlay-panel {
-    -fx-background-color: transparent;
+    -fx-background-color: white;
+    -fx-background-radius: 18;
+    -fx-border-color: -card-border;
+    -fx-border-radius: 18;
+    -fx-border-width: 1;
     -fx-alignment: center;
-    -fx-spacing: 25px;
+    -fx-spacing: 20px;
+    -fx-max-width: 760;
+    -fx-max-height: 540;
+    -fx-effect: dropshadow(gaussian, rgba(17,24,39,0.14), 28, 0, 0, 10);
 }
 
-.overlay-panel .overlay-title {
-    -fx-text-fill: #D8CBFA;
-    -fx-font-size: 34px;
+.overlay-title {
+    -fx-text-fill: -ecg;
+    -fx-font-size: 28px;
     -fx-font-weight: bold;
-    -fx-effect: dropshadow(gaussian, #D8CBFA, 15, 0.1, 0, 0);
 }
 
 .overlay-message-area {
     -fx-background-color: transparent;
     -fx-control-inner-background: transparent;
-    -fx-text-fill: #e0e0e0;
-    -fx-font-size: 16px;
-    -fx-highlight-fill: rgba(216, 203, 250, 0.3);
-    -fx-highlight-text-fill: #FFFFFF;
-    -fx-display-caret: false;
+    -fx-text-fill: #374151;
+    -fx-font-size: 15px;
     -fx-border-color: transparent;
-    -fx-box-border: transparent;
-}
-
-.overlay-message-area .scroll-pane {
-    -fx-background-color: transparent;
-    -fx-hbar-policy: never;
-    -fx-vbar-policy: never;
+    -fx-background-insets: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
 
 .overlay-message-area .content {
     -fx-background-color: transparent;
+}
+
+.overlay-message-area .scroll-pane,
+.overlay-message-area .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* ---------- Barras de desplazamiento ---------- */
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #CBD2D9;
+    -fx-background-radius: 2em;
 }
