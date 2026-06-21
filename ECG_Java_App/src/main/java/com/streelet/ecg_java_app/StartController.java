@@ -55,6 +55,14 @@ public class StartController implements Initializable {
     @FXML
     private ComboBox<String> serialPortComboBox; // Debe coincidir con fx:id="serialPortComboBox" en FXML
 
+    // ChoiceBox para elegir el modo de operacion (Mock vs IoT)
+    @FXML
+    private javafx.scene.control.ChoiceBox<String> modeChoiceBox; // fx:id="modeChoiceBox" en FXML
+
+    // Etiquetas visibles para cada modo en el ChoiceBox
+    private static final String MODE_MOCK_LABEL = "Simulación (Mock)";
+    private static final String MODE_IOT_LABEL = "IoT (Serial)";
+
     @FXML
     private Button startButton; // Boton "Iniciar Monitor ECG"
     @FXML
@@ -98,7 +106,48 @@ public class StartController implements Initializable {
             genderComboBox.setItems(genders);
         }
 
+         // --- Inicializar el ChoiceBox de modo de operacion ---
+         if (modeChoiceBox != null) {
+             modeChoiceBox.setItems(FXCollections.observableArrayList(MODE_MOCK_LABEL, MODE_IOT_LABEL));
+             // Por defecto se selecciona Mock para poder probar sin hardware conectado
+             modeChoiceBox.getSelectionModel().select(MODE_MOCK_LABEL);
+             modeChoiceBox.getSelectionModel().selectedItemProperty().addListener(
+                     (obs, oldVal, newVal) -> applyModeUi());
+         }
+         // Ajustar el estado inicial de la UI segun el modo seleccionado
+         applyModeUi();
+
          System.out.println("StartController: Inicialización completa.");
+    }
+
+    /**
+     * Devuelve el modo de operacion seleccionado actualmente en el ChoiceBox.
+     * Por defecto (sin seleccion) asume modo Mock.
+     */
+    private MonitorMode getSelectedMode() {
+        if (modeChoiceBox != null && MODE_IOT_LABEL.equals(modeChoiceBox.getSelectionModel().getSelectedItem())) {
+            return MonitorMode.IOT;
+        }
+        return MonitorMode.MOCK;
+    }
+
+    /**
+     * Habilita o deshabilita los controles segun el modo elegido.
+     * En modo Mock no se requiere puerto serial, por lo que el selector de
+     * puerto se deshabilita y los botones de inicio quedan siempre disponibles.
+     * En modo IoT los botones solo se habilitan si hay puertos disponibles.
+     */
+    private void applyModeUi() {
+        boolean iot = (getSelectedMode() == MonitorMode.IOT);
+        boolean portsAvailable = serialPortComboBox != null && !serialPortComboBox.getItems().isEmpty();
+
+        if (serialPortComboBox != null) {
+            serialPortComboBox.setDisable(!iot || !portsAvailable);
+        }
+
+        boolean canStart = !iot || portsAvailable; // Mock siempre puede iniciar
+        if (startButton != null) startButton.setDisable(!canStart);
+        if (startWithoutDataButton != null) startWithoutDataButton.setDisable(!canStart);
     }
 
     /**
@@ -124,27 +173,25 @@ public class StartController implements Initializable {
      * Popula el ComboBox con la lista de puertos seriales disponibles.
      */
     private void populateSerialPortComboBox() {
-        if (serialPortComboBox != null) {
-            SerialPort[] availablePorts = SerialPort.getCommPorts();
-            ObservableList<String> portNames = FXCollections.observableArrayList();
-            if (availablePorts.length > 0) {
-                for (SerialPort port : availablePorts) {
-                    portNames.add(port.getSystemPortName());
-                }
-                serialPortComboBox.setItems(portNames);
-                if (!portNames.isEmpty()) {
-                    serialPortComboBox.getSelectionModel().selectFirst(); // Seleccionar el primer puerto por defecto
-                }
-            } else {
-                 // Mostrar un mensaje si no hay puertos disponibles
-                 serialPortComboBox.setPromptText("No hay puertos disponibles");
-                 serialPortComboBox.setDisable(true); // Deshabilitar el ComboBox
-                 if (startButton != null) startButton.setDisable(true); // Deshabilitar boton si no se puede iniciar serial
-                 System.err.println("StartController: No se encontraron puertos seriales disponibles.");
-            }
-        } else {
+        if (serialPortComboBox == null) {
             System.err.println("StartController: ERROR: serialPortComboBox es null. Asegúrate de que fx:id=\"serialPortComboBox\" está en el FXML.");
+            return;
         }
+
+        SerialPort[] availablePorts = SerialPort.getCommPorts();
+        ObservableList<String> portNames = FXCollections.observableArrayList();
+        for (SerialPort port : availablePorts) {
+            portNames.add(port.getSystemPortName());
+        }
+        serialPortComboBox.setItems(portNames);
+
+        if (!portNames.isEmpty()) {
+            serialPortComboBox.getSelectionModel().selectFirst(); // Seleccionar el primer puerto por defecto
+        } else {
+            serialPortComboBox.setPromptText("No hay puertos disponibles");
+            System.err.println("StartController: No se encontraron puertos seriales disponibles.");
+        }
+        // El habilitado/deshabilitado se decide en applyModeUi() segun el modo activo.
     }
 
 
@@ -166,18 +213,19 @@ public class StartController implements Initializable {
         String selectedPort = (serialPortComboBox != null && serialPortComboBox.getSelectionModel().getSelectedItem() != null) ?
                               serialPortComboBox.getSelectionModel().getSelectedItem() : null;
 
-        // Validar que se selecciono un puerto (es crucial)
-        if (selectedPort == null || selectedPort.isEmpty()) {
-            System.err.println("StartController: No se selecciono un puerto serial.");
-            // Opcional: Mostrar un mensaje de error al usuario en la UI
-            return; // No continuar si no hay puerto
+        MonitorMode mode = getSelectedMode();
+
+        // En modo IoT es obligatorio seleccionar un puerto; en Mock no se requiere
+        if (mode == MonitorMode.IOT && (selectedPort == null || selectedPort.isEmpty())) {
+            System.err.println("StartController: No se selecciono un puerto serial (requerido en modo IoT).");
+            return; // No continuar si no hay puerto en modo IoT
         }
 
         PatientData patientData = new PatientData(patientName, gender, birthDate, medicalHistory);
 
         // 4. Notificar a la App para que cambie de escena y pase los datos
         if (startMonitoringListener != null) {
-            startMonitoringListener.onStartMonitoring(patientData, selectedPort);
+            startMonitoringListener.onStartMonitoring(patientData, selectedPort, mode);
         } else {
             System.err.println("StartController: startMonitoringListener no esta configurado.");
             // Opcional: Iniciar sin datos si el listener no esta listo?
@@ -191,18 +239,21 @@ public class StartController implements Initializable {
          // Opcion: Pasar datos de paciente vacios/nulos
          PatientData patientData = new PatientData("", "", null, ""); // Datos vacios
 
-         // Recopilar el puerto serial seleccionado (aun es necesario)
+         // Recopilar el puerto serial seleccionado
          String selectedPort = (serialPortComboBox != null && serialPortComboBox.getSelectionModel().getSelectedItem() != null) ?
                                serialPortComboBox.getSelectionModel().getSelectedItem() : null;
 
-         if (selectedPort == null || selectedPort.isEmpty()) {
-             System.err.println("StartController: No se selecciono un puerto serial para inicio sin datos.");
+         MonitorMode mode = getSelectedMode();
+
+         // En modo IoT es obligatorio seleccionar un puerto; en Mock no se requiere
+         if (mode == MonitorMode.IOT && (selectedPort == null || selectedPort.isEmpty())) {
+             System.err.println("StartController: No se selecciono un puerto serial para inicio sin datos (requerido en modo IoT).");
              return;
          }
 
          // Notificar a la App (si el listener esta configurado)
          if (startMonitoringListener != null) {
-             startMonitoringListener.onStartMonitoring(patientData, selectedPort);
+             startMonitoringListener.onStartMonitoring(patientData, selectedPort, mode);
          } else {
              System.err.println("StartController: startMonitoringListener no esta configurado para inicio sin datos.");
          }
@@ -229,7 +280,7 @@ public class StartController implements Initializable {
 
     // Interfaz para definir el contrato de comunicacion con la App principal
     public interface OnStartMonitoringListener {
-        void onStartMonitoring(PatientData patientData, String portName);
+        void onStartMonitoring(PatientData patientData, String portName, MonitorMode mode);
         void onExit(); // Para notificar a App que cierre
     }
 

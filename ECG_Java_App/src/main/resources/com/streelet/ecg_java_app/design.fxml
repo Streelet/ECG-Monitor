@@ -27,7 +27,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="59.0" layoutY="459.0" styleClass="section-label" text="Configuración de Puerto">
+            <Label layoutX="59.0" layoutY="459.0" styleClass="section-label" text="Configuración de Entrada">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -49,13 +49,19 @@
             <DatePicker fx:id="birthDatePicker" layoutX="320.0" layoutY="225.0" prefHeight="26.0" prefWidth="171.0" />
             <TextArea fx:id="medicalHistoryArea" layoutX="52.0" layoutY="332.0" prefHeight="113.0" prefWidth="434.0" promptText="Puede escribir aquí datos relevantes para el monitoreo del paciente" wrapText="true" />
             
-            <!-- Configuración de Puerto -->
-            <Label layoutX="59.0" layoutY="504.0" text="Puerto Serial:">
+            <!-- Configuración de Entrada: modo de operación y puerto -->
+            <Label layoutX="59.0" layoutY="504.0" text="Modo:">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <ComboBox fx:id="serialPortComboBox" layoutX="170.0" layoutY="502.0" prefWidth="200.0" promptText="Seleccione un puerto" />
+            <ChoiceBox fx:id="modeChoiceBox" layoutX="120.0" layoutY="502.0" prefWidth="160.0" />
+            <Label layoutX="300.0" layoutY="504.0" text="Puerto Serial:">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="serialPortComboBox" layoutX="410.0" layoutY="502.0" prefWidth="140.0" promptText="Seleccione un puerto" />
 
             <!-- Botones de Acción -->
             <Button fx:id="startButton" layoutX="561.0" layoutY="120.0" prefHeight="37.0" prefWidth="238.0" text="Iniciar Monitor con Paciente">

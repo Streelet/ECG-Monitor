@@ -94,8 +94,8 @@ public class App extends Application implements OnStartMonitoringListener {
      * @param portName The selected serial port name.
      */
     @Override
-    public void onStartMonitoring(PatientData patientData, String portName) {
-        System.out.println("App: Recibida señal para iniciar monitor. Puerto: " + portName);
+    public void onStartMonitoring(PatientData patientData, String portName, MonitorMode mode) {
+        System.out.println("App: Recibida señal para iniciar monitor. Modo: " + mode + ", Puerto: " + portName);
         System.out.println("App: Cargando monitor.fxml y pasando datos...");
 
         // Clean up the start controller if necessary (e.g., stop clock timeline)
@@ -118,8 +118,8 @@ public class App extends Application implements OnStartMonitoringListener {
 
                 // *** IMPORTANT: Pass the data and port to the monitor controller BEFORE starting serial ***
                 // Make sure EcgMonitorController has a public method like setPatientDataAndPort(patientData, portName)
-                ecgMonitorController.setPatientDataAndPort(patientData, portName);
-                System.out.println("App: Datos de paciente y puerto pasados al EcgMonitorController.");
+                ecgMonitorController.setPatientDataAndPort(patientData, portName, mode);
+                System.out.println("App: Datos de paciente, puerto y modo pasados al EcgMonitorController.");
 
                 // Now that data and port are set, tell the monitor controller to start monitoring
                 // Make sure EcgMonitorController has a public startMonitoring() method
@@ -157,7 +157,10 @@ public class App extends Application implements OnStartMonitoringListener {
 
 
             primaryStage.setScene(monitorScene); // Switch to the monitor scene
-            primaryStage.setTitle("ECG Monitor"); // Change the window title
+            // El titulo refleja el modo activo para que sea claro de un vistazo
+            primaryStage.setTitle(mode == MonitorMode.MOCK
+                    ? "ECG Monitor — Simulación (Mock)"
+                    : "ECG Monitor — IoT (Serial)");
 
             System.out.println("App: Pantalla del monitor cargada y mostrada con datos.");
 

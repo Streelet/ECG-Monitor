@@ -9,7 +9,9 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Label;
 import com.streelet.ecg_java_app.sound.Beep;
 import com.streelet.ecg_java_app.serial.SerialDataListener;
-import com.streelet.ecg_java_app.serial.SerialDataManager;
+import com.streelet.ecg_java_app.data.EcgDataSource;
+import com.streelet.ecg_java_app.data.MockEcgDataManager;
+import com.streelet.ecg_java_app.data.SerialEcgDataSource;
 import com.streelet.ecg_java_app.model.EcgDataModel;
 import com.streelet.ecg_java_app.model.EcgPeakListener;
 import javafx.animation.FadeTransition;
@@ -60,8 +62,9 @@ public class EcgMonitorController implements Initializable, SerialDataListener, 
 
 
    
-    private PatientData patientData; 
-    private String serialPortName; 
+    private PatientData patientData;
+    private String serialPortName;
+    private MonitorMode mode = MonitorMode.IOT; // Modo por defecto; lo fija App al iniciar
     
     
  @FXML
@@ -86,7 +89,7 @@ private Label patientAllergiesLabel;
        
 
 
-    private SerialDataManager serialDataManager; 
+    private EcgDataSource dataSource;
 
 
     private XYChart.Series<Number, Number> ecgSeries;
@@ -171,10 +174,11 @@ private Label patientAllergiesLabel;
     }
 
 
-    public void setPatientDataAndPort(PatientData patientData, String portName) {
-        System.out.println("EcgMonitorController: Datos de paciente y puerto recibidos.");
+    public void setPatientDataAndPort(PatientData patientData, String portName, MonitorMode mode) {
+        System.out.println("EcgMonitorController: Datos de paciente y puerto recibidos. Modo: " + mode);
         this.patientData = patientData;
         this.serialPortName = portName;
+        this.mode = (mode != null) ? mode : MonitorMode.IOT;
 
         // --- CORRECCIÓN AQUÍ: Usando solo getName() y getSummary() ---
         if (this.patientData != null) {
@@ -219,44 +223,44 @@ private Label patientAllergiesLabel;
 
     // Este metodo es llamado por App.java DESPUES de setPatientDataAndPort()
     public void startMonitoring() {
-         System.out.println("EcgMonitorController: Iniciando monitorización serial...");
+         System.out.println("EcgMonitorController: Iniciando monitorización en modo " + mode + "...");
 
-         // Verificar que tenemos el nombre del puerto antes de intentar iniciar
-         if (this.serialPortName == null || this.serialPortName.isEmpty()) {
-             System.err.println("EcgMonitorController: ERROR: No se puede iniciar la monitorización serial. Nombre de puerto no configurado.");
-             // Mostrar un mensaje de error al usuario en la UI (usando el overlay)
-             showStatusOverlay("ERROR DE INICIO"); // Usa el metodo showStatusOverlay
-             return; // Salir del metodo si no hay puerto
+         // Construir la fuente de datos segun el modo seleccionado
+         if (mode == MonitorMode.MOCK) {
+             dataSource = new MockEcgDataManager();
+         } else {
+             // Modo IoT: se requiere un puerto serial valido
+             if (this.serialPortName == null || this.serialPortName.isEmpty()) {
+                 System.err.println("EcgMonitorController: ERROR: No se puede iniciar la monitorización IoT. Nombre de puerto no configurado.");
+                 showStatusOverlay("ERROR DE INICIO");
+                 return;
+             }
+             int baudRate = 9600;
+             dataSource = new SerialEcgDataSource(this.serialPortName, baudRate);
          }
 
-         serialDataManager = new SerialDataManager();
-         serialDataManager.addListener(this); 
-
-         int baudRate = 9600; 
+         dataSource.addListener(this);
 
          try {
-             // Llama al metodo startReading con el puerto y baudRate
-             boolean serialStarted = serialDataManager.startReading(this.serialPortName, baudRate);
+             boolean started = dataSource.start();
 
-             if (serialStarted) {
-                 System.out.println("EcgMonitorController: Monitorización serial iniciada en puerto: " + this.serialPortName + "@" + baudRate);
-                 // Reiniciar el estado del modelo al iniciar una nueva conexión (mantener esta logica de tu initialize/handleConnect)
+             if (started) {
+                 System.out.println("EcgMonitorController: Monitorización iniciada correctamente (modo " + mode + ").");
+                 // Reiniciar el estado del modelo al iniciar una nueva sesion
                  if (ecgDataModel != null) {
                      ecgDataModel.resetState();
                  }
-                 // Puedes añadir alguna indicacion visual de que la monitorizacion esta activa
              } else {
-                 System.err.println("EcgMonitorController: ERROR: No se pudo iniciar la monitorización serial en puerto: " + this.serialPortName + "@" + baudRate);
-                 // Mostrar un mensaje de error al usuario en la UI (usando el overlay)
-                 showStatusOverlay("ERROR DE CONEXIÓN"); // Usa el metodo showStatusOverlay
+                 System.err.println("EcgMonitorController: ERROR: No se pudo iniciar la monitorización (modo " + mode + ").");
+                 showStatusOverlay("ERROR DE CONEXIÓN");
              }
-         } catch (Exception e) { // Capturar excepciones generales al iniciar serial
-             System.err.println("EcgMonitorController: Excepción al iniciar lectura serial en puerto " + this.serialPortName + ": " + e.getMessage());
+         } catch (Exception e) { // Capturar excepciones generales al iniciar la fuente de datos
+             System.err.println("EcgMonitorController: Excepción al iniciar la monitorización (modo " + mode + "): " + e.getMessage());
              e.printStackTrace();
-             showStatusOverlay("ERROR DE CONEXIÓN"); // Usa el metodo showStatusOverlay
+             showStatusOverlay("ERROR DE CONEXIÓN");
          }
     }
-    // --- Fin Metodo para iniciar monitorizacion serial ---
+    // --- Fin Metodo para iniciar monitorizacion ---
 
 
    
@@ -470,11 +474,11 @@ private Label patientAllergiesLabel;
      */
     public void shutdown() {
         System.out.println("EcgMonitorController: Llamando a shutdown()...");
-        if (serialDataManager != null) {
-            serialDataManager.disconnect();
-            System.out.println("EcgMonitorController: SerialDataManager desconectado.");
-        } else { // Añadido mensaje si serialDataManager es null
-             System.out.println("EcgMonitorController: SerialDataManager es null, no se necesita detener.");
+        if (dataSource != null) {
+            dataSource.stop();
+            System.out.println("EcgMonitorController: Fuente de datos detenida.");
+        } else {
+             System.out.println("EcgMonitorController: No hay fuente de datos activa, no se necesita detener.");
         }
         Beep.shutdown();
         System.out.println("EcgMonitorController: Sistema Beep (AudioCue) apagado.");
